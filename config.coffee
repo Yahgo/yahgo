@@ -11,9 +11,9 @@ exports.config =
         # Files in `vendor` directories are compiled before other files
         # even if they aren't specified in order.before.
         before: [
-          'vendor/scripts/console-polyfill.js',
-          'vendor/scripts/jquery-2.0.3.js',
-          'vendor/scripts/lodash-1.3.1.js',
+          'vendor/scripts/console-polyfill.js'
+          'vendor/scripts/jquery-2.0.3.js'
+          'vendor/scripts/lodash-1.3.1.js'
           'vendor/scripts/backbone-1.0.0.js'
         ]
         after: [
@@ -29,3 +29,10 @@ exports.config =
 
     templates:
       joinTo: 'javascripts/app.js'
+      
+      
+  plugins:
+      coffeelint:
+        options:
+          max_line_length:
+            level: "ignore"

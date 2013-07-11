@@ -1,5 +1,6 @@
 Application = require 'application'
 routes = require 'routes'
+topics = require 'config/topics'
 
 # Initialize the application on DOM ready event.
 $ ->
