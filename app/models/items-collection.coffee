@@ -8,17 +8,13 @@ module.exports = class ItemsCollection extends Collection
     collection = @
     pipeURL = "http://pipes.yahoo.com/pipes/pipe.run"
     pipeID = PipesID[Math.floor (Math.random() * 10)]
-    
-    newParams =
-      section : ('' if params && params.section is undefined)
-      country : ('fr' if params && params.country is undefined)
-    
+
     data =
-      category: newParams.section
-      country : newParams.country
+      category: (if (params && params.section) is undefined then '' else params.section)
+      country : (if (params && params.country) is undefined then 'fr' else params.section)
       _id: pipeID
       _render: "json"
-      
+
     xhrOptions =
       url : pipeURL
       type : 'GET'
