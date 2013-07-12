@@ -23,4 +23,3 @@ module.exports = class ItemsCollection extends Collection
     request = $.ajax(xhrOptions)
     .done (response) ->
       collection.reset(response.value.items)
-    
