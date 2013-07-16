@@ -1,3 +1,16 @@
 <li>
-	<span data-url="{{link}}">{{title}}</span>
+	{{#unless error}}
+		{{#if image}}
+			{{#if image.url}}
+			<img src="{{image.url}}" />
+			{{/if}}
+		{{/if}}
+		<span data-url="{{link}}">{{title}}</span>
+		<a href="{{link}}">{{link}}</a>
+		<img src="http://g.etfv.co/{{source.url}}" width="16"/>
+		<a href="{{source.url}}">{{{source.content}}}</a>
+	{{/unless}}
+	{{#if error}}
+		<span>Can't grab news… Try again !</span>
+	{{/if}}
 </li>
