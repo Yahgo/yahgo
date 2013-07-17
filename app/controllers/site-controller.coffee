@@ -8,8 +8,9 @@ Topics = require 'config/topics'
 module.exports = class SiteController extends Controller
 
   beforeAction: ->
+    topics = Topics.countries[Topics.defaultCountry]
     @compose 'site', SiteView
-    @compose 'header', HeaderView, region: 'header', topics: Topics
+    @compose 'header', HeaderView, region: 'header', topics: topics
     if @items is undefined
       @items = new ItemsCollection null
       @itemsView = new ItemsView collection: @items
