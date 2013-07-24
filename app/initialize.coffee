@@ -6,6 +6,6 @@ topics = require 'config/topics'
 $ ->
   
   new Application
-    title: 'Brunch example application',
+    title: 'Yahgo',
     controllerSuffix: '-controller',
     routes: routes
