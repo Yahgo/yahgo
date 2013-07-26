@@ -1,21 +1,36 @@
 @import 'nib'
 
-.header
-  width: 476px
-  margin: 0 auto
-  padding: 10px
-  background-color: #4276b6
-
-  &-link
-    margin-right: 32px
-    text-decoration: none
-    color: #eee
-
-    &:visited
-      color: #eee
-
-    &:hover
-      text-decoration: underline
-
-    &:last-child
-      margin-right: 0
+#header-container
+	padding 10px
+	background linear-gradient(top, #f3f3f3, #fff)
+	
+	
+	.header
+		position relative
+		overflow auto
+		&-link
+			margin-right 32px
+			text-decoration none
+			color #eee
+		
+			&:visited
+				color #eee
+		
+			&:hover
+				text-decoration underline
+		
+		  	&:last-child
+				margin-right 0
+		
+		h1
+			float left
+		
+		#topics
+			list-style none
+			
+			li
+				display inline
+		
+		
+		#prefs
+			float right
