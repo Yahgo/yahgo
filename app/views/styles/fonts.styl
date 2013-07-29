@@ -4,20 +4,20 @@
 @import "nib"
 
 font-url = '/fonts/'
+noveN = 'Novecentowide-Normal'
+noveM = 'Novecentowide-Medium'
 
 fontFaces()
 	@font-face
-		font-family: 'Novecentowide-Normal'
+		font-family: noveN
 		src: url(font-url + '27D6D3_0_0.eot')
 		src: url(font-url + '27D6D3_0_0.eot?#iefix') format('embedded-opentype'),url(font-url + '27D6D3_0_0.woff') format('woff'),url(font-url + '27D6D3_0_0.ttf') format('truetype'),url(font-url + '27D6D3_0_0.svg#wf') format('svg')
-	  
+
 	@font-face
-		font-family: 'Novecentowide-Medium'
+		font-family: noveM
 		src: url(font-url + '27D6D3_1_0.eot')
 		src: url(font-url + '27D6D3_1_0.eot?#iefix') format('embedded-opentype'),url(font-url + '27D6D3_1_0.woff') format('woff'),url(font-url + '27D6D3_1_0.ttf') format('truetype'),url(font-url + '27D6D3_1_0.svg#wf') format('svg')
 
-noveN = 'Novecentowide-Normal'
-noveM = 'Novecentowide-Medium'
 	
 noveCento(family = noveN, Size = 12px, Color = #666, LineHeight = normal, TextShadow = false)
 	font Size/LineHeight family, sans-serif
