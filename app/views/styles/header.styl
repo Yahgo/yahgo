@@ -1,21 +1,52 @@
-@import 'nib'
+@import "nib"
+@import "fonts"
 
-.header
-  width: 476px
-  margin: 0 auto
-  padding: 10px
-  background-color: #4276b6
+#header-container
 
-  &-link
-    margin-right: 32px
-    text-decoration: none
-    color: #eee
+	background linear-gradient(top, #f3f3f3, #fff)
+	height 40px
+	
+	.header
+		position relative
+		overflow auto
 
-    &:visited
-      color: #eee
+		h1
+			float left
+			margin 0 0 0 10px
+			noveCento(noveN, 14px, #666, 40px)
+			a
+				color #666
+				text-decoration none
+				
+				&:hover
+						color #333
+						
 
-    &:hover
-      text-decoration: underline
 
-    &:last-child
-      margin-right: 0
+		#topics
+			list-style none
+			text-align center
+			margin 0 50px
+			padding 0
+			
+			li
+				display inline
+				noveCento(noveM, 12px, #666, 40px)
+				
+				&:after
+					content "|"
+					margin 0 2px
+					color #ccc
+				&:last-child:after
+					content none
+					margin 0
+				a
+					color #666
+					text-decoration none
+					
+					&:hover
+						color #333	
+		
+		
+		#prefs
+			float right
