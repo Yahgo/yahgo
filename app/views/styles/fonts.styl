@@ -4,23 +4,46 @@
 @import "nib"
 
 font-url = '/fonts/'
+noveN = 'Novecentowide-Normal'
+noveM = 'Novecentowide-Medium'
+yahgo = 'yahgo'
 
 fontFaces()
 	@font-face
 		font-family: 'Novecentowide-Normal'
 		src: url(font-url + '27D6D3_0_0.eot')
 		src: url(font-url + '27D6D3_0_0.eot?#iefix') format('embedded-opentype'),url(font-url + '27D6D3_0_0.woff') format('woff'),url(font-url + '27D6D3_0_0.ttf') format('truetype'),url(font-url + '27D6D3_0_0.svg#wf') format('svg')
+		font-weight normal
+		font-style normal
 	  
 	@font-face
 		font-family: 'Novecentowide-Medium'
 		src: url(font-url + '27D6D3_1_0.eot')
 		src: url(font-url + '27D6D3_1_0.eot?#iefix') format('embedded-opentype'),url(font-url + '27D6D3_1_0.woff') format('woff'),url(font-url + '27D6D3_1_0.ttf') format('truetype'),url(font-url + '27D6D3_1_0.svg#wf') format('svg')
+		font-weight normal
+		font-style normal
+		
+	@font-face
+		font-family: 'yahgo'
+		src:url(font-url + 'yahgo.eot')
+		src:url(font-url + 'yahgo.eot?#iefix') format('embedded-opentype'), url(font-url + 'yahgo.woff') format('woff'), url(font-url + 'yahgo.ttf') format('truetype'), url(font-url + 'yahgo.svg#yahgo') format('svg')
+		font-weight normal
+		font-style normal
 
-noveN = 'Novecentowide-Normal'
-noveM = 'Novecentowide-Medium'
 	
 noveCento(family = noveN, Size = 12px, Color = #666, LineHeight = normal, TextShadow = false)
 	font Size/LineHeight family, sans-serif
 	color Color
 	unless TextShadow == false
 		text-shadow TextShadow
+		
+
+yahgoIcon()
+	font-family yahgo
+	content: attr(data-icon);
+	speak none
+	font-weight normal
+	font-variant normal
+	text-transform none
+	line-height 1
+	-webkit-font-smoothing antialiased

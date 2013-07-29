@@ -4,7 +4,7 @@
 #header-container
 
 	background linear-gradient(top, #f3f3f3, #fff)
-	height 40px
+	min-height 40px
 	
 	.header
 		position relative
@@ -13,9 +13,9 @@
 		h1
 			float left
 			margin 0 0 0 10px
-			noveCento(noveN, 14px, #666, 40px)
+			
 			a
-				color #666
+				noveCento(noveN, 14px, #666, 40px)
 				text-decoration none
 				
 				&:hover
@@ -26,12 +26,12 @@
 		#topics
 			list-style none
 			text-align center
-			margin 0 50px
-			padding 0
+			margin 0 80px
+			padding 8px 0 5px
 			
 			li
 				display inline
-				noveCento(noveM, 12px, #666, 40px)
+				noveCento(noveM, 12px, #666, 200%)
 				
 				&:after
 					content "|"
@@ -50,3 +50,10 @@
 		
 		#prefs
 			float right
+			
+			&:before
+				color #666
+				text-shadow 0 1px 0 #fff
+				line-height 40px
+				margin 0 15px 0 0
+			
