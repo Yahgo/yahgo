@@ -8,4 +8,5 @@ module.exports = class ItemsView extends CollectionView
   animationDuration: 0
   itemView: ItemView
   region: 'items'
-  tagName: 'ul'
+  tagName: 'div'
+  className: 'items'

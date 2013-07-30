@@ -1,16 +1,16 @@
-<li>
-	{{#unless error}}
-		{{#if image}}
-			{{#if image.url}}
-			<!--img src="{{image.url}}" /-->
-			{{/if}}
+{{#unless error}}
+	{{#if image}}
+		{{#if image.url}}
+		<div class="imgContainer">
+			<img src="{{image.url}}" alt="" />
+		</div>
 		{{/if}}
-		<span data-url="{{link}}">{{title}}</span>
-		<a href="{{link}}">{{link}}</a>
-		<img src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" width="16"/>
-		<a href="{{source.url}}">{{{source.content}}}</a>
-	{{/unless}}
-	{{#if error}}
-		<span>Can't grab news… Try again !</span>
 	{{/if}}
-</li>
+	<span data-url="{{link}}">{{title}}</span>
+	<a href="{{link}}">{{link}}</a>
+	<img src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" width="16"/>
+	<a href="{{source.url}}">{{{source.content}}}</a>
+{{/unless}}
+{{#if error}}
+	<span>Can't grab news… Try again !</span>
+{{/if}}
