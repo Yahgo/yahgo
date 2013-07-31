@@ -42,24 +42,24 @@ module.exports = class ItemsCollection extends Collection
       Yahoo provide a string with two urls.
       The first one is the yahoo sized image, and the second one is the original image
       
-      TODO : Choisir un moyen d'afficher soit la petite ou la grande version de l'image
-      Soit on affiche la petite puis on vérifie la taille du container pour ensuite décider de prendre la grande
-      Soit on se base sur le window height et width pour décider si le device aura besoin d'une image plus grande que celle fournie par yahoo
-      Pour l'instant on affiche la grande…
-      ###
+      #TODO : Choisir un moyen d'afficher soit la petite ou la grande version de l'image
+      #Soit on affiche la petite puis on vérifie la taille du container pour ensuite décider de prendre la grande
+      #Soit on se base sur le window height et width pour décider si le device aura besoin d'une image plus grande que celle fournie par yahoo
+      #Pour l'instant on affiche la grande…
+      ####
       items = response.value.items
-      for item in items
-        # We added a specific key for Google and can test it
-        unless item.isGoogle is undefined
-          item = @parseGoogleNews item
-
-        # image is not necessary present
-        unless item.image is undefined
-          currentURL = item.image.url
-          # We capture the second http sequence
-          pattern = /.+(http:\/\/.+)/
-          testURL = pattern.test(currentURL)
-          item.image.url = if testURL then RegExp.$1 else currentURL
+      #for item in items
+      #  # We added a specific key for Google and can test it
+      #  unless item.isGoogle is undefined
+      #    item = @parseGoogleNews item
+      #
+      #  # image is not necessary present
+      #  unless item.image is undefined
+      #    currentURL = item.image.url
+      #    # We capture the second http sequence
+      #    pattern = /.+(http:\/\/.+)/
+      #    testURL = pattern.test(currentURL)
+      #    item.image.url = if testURL then RegExp.$1 else currentURL
       
       # Populate the collection
       collection.reset items

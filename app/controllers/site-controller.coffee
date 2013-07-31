@@ -18,7 +18,12 @@ module.exports = class SiteController extends Controller
 
   index: ->
     @items.fetch().then @itemsView
-    
+    @optimizeImages()
 
   showSection : (params) ->
     @items.fetch(params).then @itemsView
+    @optimizeImages()
+    
+
+  optimizeImages : ->
+    console.log(@items)
