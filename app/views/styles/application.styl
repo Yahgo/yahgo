@@ -1,0 +1,58 @@
+/*
+ * nib is a powerful lib for stylus that provides cross-browser css3 mixins.
+ * No more vendor prefixes. http://visionmedia.github.com/nib/
+ */
+@import "nib"
+@import 'fonts'
+
+
+fontFaces()
+
+*
+	box-sizing border-box
+
+
+
+/*
+ * GLOBAL STYLES
+ */
+
+body
+	background #F3F3F3
+
+/* Set font icon with data-icon value */
+[data-icon]:before
+	yahgoIcon()
+
+
+
+/*
+ *  LAYOUT
+ */
+
+/* From 800 to 1600 */
+@media screen and (min-width: 800px) and (max-width: 1599px)
+
+	.item
+		
+		width 25%
+		float left
+		overflow hidden
+		background #fff
+		margin 20px 20px 20px 0 
+		height 325px
+		border 1px solid #ddd
+		border-bottom 2px solid #ccc
+		border-top 1px solid #ccc
+		
+		&:nth-child(3n+1)
+			width 40%
+			margin 20px
+			
+		.imgContainer
+			width 100%
+			height 240px
+			overflow hidden
+			
+			img
+				width inherit
