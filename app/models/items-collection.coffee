@@ -5,11 +5,14 @@ Topics = require 'config/topics'
 
 module.exports = class ItemsCollection extends Collection
   model: ItemModel
+  # Override regulat fetch cause we need to grab topics in Topics module
+  # TODO : find a way to manage l10n / i18n
   fetch: (params) ->
     collection = @
     pipeURL = "http://pipes.yahoo.com/pipes/pipe.run"
     pipeID = PipesID[Math.floor (Math.random() * 10)]
-
+    
+    # Check for any params provided (country & section) 
     data =
       category: (if (params && params.section) is undefined then '' else params.section)
       country : (if (params && params.country) is undefined then Topics.defaultCountry else params.country)
@@ -22,12 +25,11 @@ module.exports = class ItemsCollection extends Collection
       countryTopics = Topics.countries[data.country].topics
       currentTopic = _.find countryTopics, (topic) ->
         return (topic.section is data.category && topic.gTopic isnt undefined)
-      console.log currentTopic
       
+      # For specific countries, current google topic sometimes doesn't exist
       unless currentTopic is undefined
         data.topic = currentTopic.gTopic
         data.ned = data.country
-        console.log data
       
     
     
@@ -38,39 +40,27 @@ module.exports = class ItemsCollection extends Collection
       
     request = $.ajax(xhrOptions)
     .done (response) =>
-      ###
-      Yahoo provide a string with two urls.
-      The first one is the yahoo sized image, and the second one is the original image
       
-      #TODO : Choisir un moyen d'afficher soit la petite ou la grande version de l'image
-      #Soit on affiche la petite puis on vérifie la taille du container pour ensuite décider de prendre la grande
-      #Soit on se base sur le window height et width pour décider si le device aura besoin d'une image plus grande que celle fournie par yahoo
-      #Pour l'instant on affiche la grande…
-      ####
       items = response.value.items
-      #for item in items
-      #  # We added a specific key for Google and can test it
-      #  unless item.isGoogle is undefined
-      #    item = @parseGoogleNews item
-      #
-      #  # image is not necessary present
-      #  unless item.image is undefined
-      #    currentURL = item.image.url
-      #    # We capture the second http sequence
-      #    pattern = /.+(http:\/\/.+)/
-      #    testURL = pattern.test(currentURL)
-      #    item.image.url = if testURL then RegExp.$1 else currentURL
+      
+      # We added a specific key for Google and can test if exists for each item
+      for item in items
+        unless item.isGoogle is undefined
+          item = @parseGoogleNews item
       
       # Populate the collection
       collection.reset items
     
+    # Error case
+    # TODO : improve error handling 
     .fail ->
       errorObject =
         error: true
+
       collection.reset errorObject
       
       
-
+  # In Goole news, we must parse HTML descrption field to extract article link, source & image
   parseGoogleNews: (item) ->
     description = item.description
     link = item.link
