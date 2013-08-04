@@ -29,8 +29,8 @@ exports.config =
         max_line_length:
           level: "ignore"
             
-  #server:
-  #  path: 'app.coffee'
-  #  port: 3333
-  #  base: '/'
-  #  run: yes
+  server:
+    path: 'app.coffee'
+    port: 3333
+    base: '/'
+    run: yes

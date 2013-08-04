@@ -4,6 +4,7 @@ HeaderView = require 'views/header-view'
 ItemsView = require 'views/items-view'
 ItemsCollection = require 'models/items-collection'
 Topics = require 'config/topics'
+canvasHelper = require 'lib/canvas-helper'
 
 module.exports = class SiteController extends Controller
 
@@ -17,12 +18,41 @@ module.exports = class SiteController extends Controller
 
 
   index: ->
-    @items.fetch().then @itemsView
-    #@getYahooLargeImage(@itemsView.collection)
+    @items.fetch().then =>
+      @itemsView
+      
+      # Fill canvas.
+      ###
+      Test for canvas resizing. Comment lines below if want to revert to img tag.
+        See also item.hbs & initialize
+      ###
+      @fillCanvas @itemsView.collection.models
 
   showSection : (params) ->
     @items.fetch(params).then @itemsView
-    
+  
+  fillCanvas : (items) ->
+
+    for item, i in items
+      imageObject = item.attributes.image
+      unless imageObject is undefined
+        imgURL = encodeURIComponent imageObject.url
+        do (imgURL, i) =>
+          @requestEncode64 imgURL, (data) ->
+            canvas = $("#page-container .items .item").eq(i).find(".imgContainer canvas")
+            canvasHelper.resizeCanvasToContainer canvas, data
+  
+  requestEncode64 : (url, callback) ->
+    requestParams =
+      url : "/encode64/"+url
+    request = $.ajax requestParams
+    request.done (data) ->
+      #console.log "success loading image "+url
+      callback data
+    request.fail ->
+      #console.log "failed loading image "+url
+  
+  
   ###
   Yahoo provide a string with two urls.
   The first one is the yahoo sized image, and the second one is the original image
@@ -40,8 +70,3 @@ module.exports = class SiteController extends Controller
         pattern = /.+(http:\/\/.+)/
         testURL = pattern.test(currentURL)
         item.image.url = if testURL then RegExp.$1 else currentURL
-  
-  
-  # Put large images in a sized canvas for better perf
-  optimizeImages : ->
-    console.log(@items)
