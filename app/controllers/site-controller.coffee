@@ -26,7 +26,7 @@ module.exports = class SiteController extends Controller
       Test for canvas resizing. Comment lines below if want to revert to img tag.
         See also item.hbs & initialize
       ###
-      @fillCanvas @itemsView.collection.models
+      #@fillCanvas @itemsView.collection.models
 
   showSection : (params) ->
     @items.fetch(params).then @itemsView

@@ -24,6 +24,27 @@
 						
 
         
+        #showTopics
+			/* Up to 600 */
+			@media screen and (min-width: 600px)
+				&:before
+					content ""
+			
+			/* Down to 600 */
+			@media screen and (max-width: 599px)
+				float right
+				line-height 40px
+				width 50px
+				margin 0 10px 0 0
+				+ #topics
+					display none
+					
+				&:hover + #topics
+					display block
+	        
+	        
+					
+				
 		#topics
 			list-style none
 			text-align center
@@ -47,7 +68,7 @@
 					
 					&:hover
 						color #333	
-		
+			
 		
 		#prefs
 			float right

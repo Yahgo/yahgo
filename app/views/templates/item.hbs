@@ -1,21 +1,24 @@
-{{#unless error}}
-	{{#if image}}
-		{{#if image.url}}
-		<div class="imgContainer">
-			<!--img src="{{image.url}}" alt="" /-->
-			<!--
-				Switch comments if revert to img tag.
-				See also initialize & site-controller
-			-->
-			<canvas></canvas>
-		</div>
+
+<div class="item-container">
+	{{#unless error}}
+		{{#if image}}
+			{{#if image.url}}
+			<div class="imgContainer">
+				<img src="{{image.url}}" alt="" />
+				<!--
+					Switch comments if revert to canvas or img tag.
+					See also initialize & site-controller
+				-->
+				<!--canvas></canvas-->
+			</div>
+			{{/if}}
 		{{/if}}
+		<span data-url="{{link}}">{{title}}</span>
+		<a href="{{link}}">{{link}}</a>
+		<img src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" width="16"/>
+		<a href="{{source.url}}">{{{source.content}}}</a>
+	{{/unless}}
+	{{#if error}}
+		<span>Can't grab news… Try again !</span>
 	{{/if}}
-	<span data-url="{{link}}">{{title}}</span>
-	<a href="{{link}}">{{link}}</a>
-	<img src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" width="16"/>
-	<a href="{{source.url}}">{{{source.content}}}</a>
-{{/unless}}
-{{#if error}}
-	<span>Can't grab news… Try again !</span>
-{{/if}}
+</div>

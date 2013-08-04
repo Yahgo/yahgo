@@ -15,6 +15,6 @@ $ ->
     Test for canvas resizing. Comment lines below if want to revert to img tag.
     See also item.hbs & site-controller
   ###
-  $(window).on 'resize' : ->
-    $("#page-container .items .item .imgContainer canvas").each ->
-      canvasHelper.resizeCanvasToContainer $(this)
+  #$(window).on 'resize' : ->
+  #  $("#page-container .items .item .imgContainer canvas").each ->
+  #    canvasHelper.resizeCanvasToContainer $(this)
