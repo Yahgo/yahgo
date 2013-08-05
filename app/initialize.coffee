@@ -18,3 +18,6 @@ $ ->
   #$(window).on 'resize' : ->
   #  $("#page-container .items .item .imgContainer canvas").each ->
   #    canvasHelper.resizeCanvasToContainer $(this)
+  
+
+  console.log $(window).width()
