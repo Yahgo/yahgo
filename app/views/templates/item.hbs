@@ -4,7 +4,9 @@
 		{{#if image}}
 			{{#if image.url}}
 			<div class="imgContainer">
-				<img src="{{image.url}}" alt="" />
+				<div class="centerBox">
+					<img src="{{image.url}}" alt="" />
+				</div>
 				<!--
 					Switch comments if revert to canvas or img tag.
 					See also initialize & site-controller
@@ -13,10 +15,14 @@
 			</div>
 			{{/if}}
 		{{/if}}
-		<span data-url="{{link}}">{{title}}</span>
-		<a href="{{link}}">{{link}}</a>
-		<img src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" width="16"/>
-		<a href="{{source.url}}">{{{source.content}}}</a>
+		
+		<div class="infos">
+			<div class="source">
+				<img class="favicon" src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" />
+				<a class="dateAndName" href="{{source.url}}">{{fullDate pubDate}} | {{{source.content}}}</a>
+			</div>
+			<a class="title" href="{{link}}"><span data-url="{{link}}">{{title}}</span></a>
+		</div>
 	{{/unless}}
 	{{#if error}}
 		<span>Can't grab news… Try again !</span>

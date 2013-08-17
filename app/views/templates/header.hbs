@@ -2,12 +2,13 @@
 	<a href="/">Yahgo</a>
 </h1>
 <div id="prefs" data-icon="a"></div>
-
 <div id="showTopics" data-icon="b"></div>
-<ul id="topics">
-	{{#topics}}
-	<li>
-		<a href="{{section}}">{{name}}</a>
-	</li>
-	{{/topics}}
-</ul>
+<nav id="nav-container">
+	<ul id="topics">
+		{{#topics}}
+		<li>
+			<a href="{{section}}">{{name}}</a>
+		</li>
+		{{/topics}}
+	</ul>	
+</nav>

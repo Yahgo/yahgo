@@ -26,32 +26,7 @@
                 text-decoration none
 
 
-        
-        #topics
-            list-style none
-            text-align center
-            margin 0 80px
-            padding 8px 0 5px
-            
-            li
-                display inline
-                noveCento(noveM, 12px, #666, 200%)
-
-                &:after
-                    content "|"
-                    margin 0 2px
-                    color #ccc
-                &:last-child:after
-                    content none
-                    margin 0
-                a
-                    color #666
-                    text-decoration none
-                    
-                    &:hover
-                        color #333  
-
-        #prefs,
+        #prefs
         #showTopics
             cursor pointer
             
@@ -72,40 +47,7 @@
                 margin 0 10px 0 0
 
         #showTopics
-            position relative
+
             @media screen and (min-width : 599px)
                 display none
-                
-
-
-
-        @media screen and (max-width : 599px)
-            overflow visible
-            
-            #showTopics
-                
-                &:hover + #topics
-                    right 0
-                    /*display block*/
-                
-            #topics
-                /*display none*/
-                position absolute
-                right -200px
-                top 0
-                padding 10px 20px
-                z-index 10
-                margin 0
-                background #fff
-                border-left 1px solid #ccc
-                border-bottom 2px solid #ccc
-                    
-                li
-                    display block
-                    text-align left
-                        
-                        &:after
-                            content none
-                            margin 0
-                        
                     

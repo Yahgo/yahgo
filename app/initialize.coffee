@@ -2,6 +2,7 @@ Application = require 'application'
 routes = require 'routes'
 topics = require 'config/topics'
 canvasHelper = require 'lib/canvas-helper'
+yqlFetcher = require 'lib/yqlFetcher'
 
 # Initialize the application on DOM ready event.
 $ ->
@@ -19,5 +20,4 @@ $ ->
   #  $("#page-container .items .item .imgContainer canvas").each ->
   #    canvasHelper.resizeCanvasToContainer $(this)
   
-
-  console.log $(window).width()
+  #console.log $(window).width()
