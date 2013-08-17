@@ -1,60 +1,53 @@
 @import "nib"
 @import "fonts"
 
+/*
+ * HEADER
+ */
+
 #header-container
 
-	background linear-gradient(top, #f3f3f3, #fff)
-	min-height 40px
-	
-	.header
+    background linear-gradient(top, #f3f3f3, #fff)
+    min-height 40px
+    
+    .header
+        position relative
+        overflow auto
 
-		position relative
-		overflow auto
+        h1
+            margin 0 0 0 10px
 
-		h1
-			margin 0 0 0 10px
-			
-			a
-				float left
-				noveCento(noveN, 14px, #666, 40px)
-				text-decoration none
-				
-				&:hover
-						color #333
-						
+            a
+                &:hover
+                    color #333
 
+                float left
+                noveCento noveN, 14px, #666, 40px
+                text-decoration none
+
+
+        #prefs
+        #showTopics
+            cursor pointer
+            
+            &:before
+                line-height 40px
+                float right
+                color #666
+                text-shadow 0 1px 0 #fff
+                width 30px
+                text-align center
+                
+            &:hover
+                &:before
+                    color #333
         
-		#topics
-			list-style none
-			text-align center
-			margin 0 80px
-			padding 8px 0 5px
-			
-			li
-				display inline
-				noveCento(noveM, 12px, #666, 200%)
-				
-				&:after
-					content "|"
-					margin 0 2px
-					color #ccc
-				&:last-child:after
-					content none
-					margin 0
-				a
-					color #666
-					text-decoration none
-					
-					&:hover
-						color #333	
-		
-		
-		#prefs
-			float right
-			
-			&:before
-				color #666
-				text-shadow 0 1px 0 #fff
-				line-height 40px
-				margin 0 15px 0 0
-			
+        #prefs
+            &:before
+                margin 0 10px 0 0
+
+        #showTopics
+
+            @media screen and (min-width : 599px)
+                display none
+                    

@@ -22,3 +22,18 @@ Handlebars.registerHelper 'without', (context, options) ->
 # Get Chaplin-declared named routes. {{#url "like" "105"}}{{/url}}
 Handlebars.registerHelper 'url', (routeName, params..., options) ->
   Chaplin.helpers.reverse routeName, params
+
+# Parse date to fullDate format
+Handlebars.registerHelper 'fullDate', (date) ->
+  newDate = moment(date).format("DD/MM/YYYY HH:mm");
+# Parse date to regular format
+Handlebars.registerHelper 'date', (date) ->
+  newDate = moment(date).format("DD/MM/YYYY");
+# Parse date to smaller format
+Handlebars.registerHelper 'smallDate', (date) ->
+  newDate = moment(date).format("DD/MM");
+# Parse date to time format
+Handlebars.registerHelper 'time', (date) ->
+  newDate = moment(date).format("HH:mm");
+  
+
