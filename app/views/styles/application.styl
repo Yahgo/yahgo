@@ -9,8 +9,9 @@
 fontFaces()
 
 *
-	box-sizing border-box
-
+*:after
+*::before
+    box-sizing border-box
 
 
 /*
@@ -18,11 +19,11 @@ fontFaces()
  */
 
 body
-	background #F3F3F3
+    background #F3F3F3
 
 /* Set font icon with data-icon value */
 [data-icon]:before
-	yahgoIcon()
+    yahgoIcon()
 
 
 
@@ -30,29 +31,167 @@ body
  *  LAYOUT
  */
 
-/* From 800 to 1600 */
-@media screen and (min-width: 800px) and (max-width: 1599px)
+/* Global */
 
-	.item
-		
-		width 25%
-		float left
-		overflow hidden
-		background #fff
-		margin 20px 20px 20px 0 
-		height 325px
-		border 1px solid #ddd
-		border-bottom 2px solid #ccc
-		border-top 1px solid #ccc
-		
-		&:nth-child(3n+1)
-			width 40%
-			margin 20px
-			
-		.imgContainer
-			width 100%
-			height 240px
-			overflow hidden
-			
-			img
-				width inherit
+#site-container
+    position relative
+    overflow hidden
+    width 100%
+
+    .item
+
+        float left
+        
+        .item-container
+            overflow hidden
+            background #fff
+            border 1px solid #ddd
+            border-bottom 2px solid #ccc
+            border-top 1px solid #ccc
+                
+            .imgContainer
+                width 100%
+                overflow hidden
+                position relative
+                border-bottom 1px solid #eee
+                
+                .centerBox
+                    left 50%
+                    position absolute
+                    height 100%
+                    width 100%
+                    
+                    img
+                    canvas
+                        left -50%
+                        position relative
+                        width inherit
+                
+            .infos
+                margin 15px
+                
+                a
+                    text-decoration none
+                    &:hover
+                        color #333
+
+                .source
+                    
+                    
+                    
+                    .favicon
+                        margin 0 10px 0 0
+                        width 16px
+
+                    .favicon
+                    .dateAndName
+                        float left;
+                        noveCento(noveN, 11px, #999)
+                        
+                    .dateAndName
+                        width calc(100% - 30px)
+                        white-space nowrap
+                        text-overflow ellipsis
+                        overflow hidden
+                        &:hover
+                            color #333
+                    
+                .title
+                    clear both
+                    float left
+                    noveCento(noveM, 14px, #666, 1.45em)
+                    
+                    span
+                        display block
+                        display -webkit-box
+                        -webkit-line-clamp 3
+                        -webkit-box-orient vertical
+                        overflow hidden
+                        text-overflow -o-ellipsis-lastline
+                        max-height 38px
+                        position relative
+                        
+                        &:after
+                            content ""
+                            text-align right
+                            position absolute
+                            bottom 0
+                            right 0
+                            width 30%
+                            height 1.2em
+                            background linear-gradient(left, rgba(255, 255, 255, 0), 95% rgba(255, 255, 255, 1))
+                
+    /* Down to 480 */
+    @media screen and (max-width: 480px)
+
+        .item           
+            width 100%
+            
+            .item-container
+                margin 10px
+                height 300px
+                
+                .imgContainer
+                    height 220px
+    
+    /* From 481 to 800*/
+    @media screen and (min-width: 481px) and (max-width: 800px)
+        .item
+            
+            width 50%
+            
+            &:nth-child(odd)
+                .item-container
+                    margin 10px 0 10px 10px
+            
+            .item-container
+                margin 10px
+                height 300px
+                
+                .imgContainer
+                    height 220px
+    
+    /* From 800 to 1600 */
+    @media screen and (min-width: 799px) and (max-width: 1599px)
+    
+        .item
+            
+            width 30%
+            
+            &:nth-child(3n+1)
+                width 40%
+                
+                .item-container
+                    margin 20px
+                    
+            
+            .item-container
+                margin 20px 20px 20px 0 
+                height 325px
+                
+                .imgContainer
+                    height 240px
+                    
+    
+    /* Up to 1600 */
+    @media screen and (min-width: 1600px)
+    
+        .item
+            
+            width 20%
+            
+            &:nth-child(4n-3)
+                width 30%
+                
+                .item-container
+                    margin 20px
+    
+            &:nth-child(4n)
+                width 30%       
+            
+            .item-container
+                margin 20px 20px 20px 0 
+                height 325px
+                
+                .imgContainer
+                    height 240px

@@ -6,6 +6,6 @@ module.exports = class HeaderView extends View
   className: 'header'
   region: 'header'
   template: template
-    
+      
   getTemplateData: ->
     @options.topics

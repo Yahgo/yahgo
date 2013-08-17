@@ -1,0 +1,45 @@
+@import "nib"
+@import "fonts"
+
+/*
+ * NAVIGATION
+ */
+
+#nav-container
+
+    #topics
+        list-style none
+        text-align center
+        margin 0 80px
+        padding 8px 0 5px
+        
+        li
+            display inline
+            noveCento(noveM, 12px, #666, 200%)
+
+            &:after
+                content "|"
+                margin 0 2px
+                color #ccc
+
+            &:last-child:after
+                content none
+                margin 0
+            a
+                color #666
+                text-decoration none
+                
+                &:hover
+                    color #333
+                    
+
+    @media screen and (max-width : 599px)
+        
+        #topics
+            margin 0
+        
+            li
+                display block
+                
+                &:after
+                    content none

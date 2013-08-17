@@ -1,5 +1,5 @@
 module.exports =
-defaultCountry : "us"
+defaultCountry : "fr"
 countries :
   fr :
     topics :
