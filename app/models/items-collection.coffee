@@ -40,9 +40,16 @@ module.exports = class ItemsCollection extends Collection
       items = response.query.results.item
       # We added a specific key for Google and can test if exists for each item
       for item in items
-        # since we don't use pipes anymore, the key doesn't exist anymore. We now check for guid key
-        unless item.guid is undefined
+        
+        # Yahoo now encapsulate image in a content key, but type can be something else than an image
+        imageTypePattern = /image/
+        if item.content isnt undefined and item.content.type isnt undefined and imageTypePattern.test item.content.type 
+          item.image = item.content
+        # since we don't use pipes anymore, the key doesn't exist anymore. We now look for a specific string in guid key 
+        googleTagPattern = /tag:news.google.com/
+        if item.guid isnt undefined and googleTagPattern.test item.guid 
           item = @parseGoogleNews item
+        console.log item.image
       
       # Populate the collection
       collection.reset items
