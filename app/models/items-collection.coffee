@@ -40,16 +40,15 @@ module.exports = class ItemsCollection extends Collection
       items = response.query.results.item
       # We added a specific key for Google and can test if exists for each item
       for item in items
-        
         # Yahoo now encapsulate image in a content key, but type can be something else than an image
         imageTypePattern = /image/
         if item.content isnt undefined and item.content.type isnt undefined and imageTypePattern.test item.content.type 
           item.image = item.content
         # since we don't use pipes anymore, the key doesn't exist anymore. We now look for a specific string in guid key 
         googleTagPattern = /tag:news.google.com/
-        if item.guid isnt undefined and googleTagPattern.test item.guid 
+
+        if item.guid isnt undefined and googleTagPattern.test item.guid.content 
           item = @parseGoogleNews item
-        console.log item.image
       
       # Populate the collection
       collection.reset items
@@ -80,7 +79,7 @@ module.exports = class ItemsCollection extends Collection
     # Check if we can find a source
     if sourcePattern.test description
       item.source.content = RegExp.$1
-      
+    
     # Check if we can find an image
     if imgPattern.test description
       item.image =
@@ -93,6 +92,12 @@ module.exports = class ItemsCollection extends Collection
       # Extract domain from previous parsed link
       if domainPattern.test item.link
         item.source.url = RegExp.$1
+        
+        # If we didn't find any source name, we take domain name
+        if item.source.content is undefined
+          # We remove prefix
+          prefixPattern = /(http|https):\/\/(w{3})?/
+          item.source.content = item.source.url.replace prefixPattern, ""  
 
     return item
     
