@@ -18,6 +18,8 @@
 .tmproj
 nbproject
 Thumbs.db
+*.sublime-project
+*.sublime-workspace
 
 # NPM packages folder.
 node_modules/
