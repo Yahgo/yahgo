@@ -12,11 +12,26 @@
     
     .header
         position relative
-        overflow auto
+        overflow hidden
 
         h1
             margin 0 0 0 10px
+            position relative
 
+            &:before
+                transition all .3s ease
+                opacity 0
+                margin 0
+                position absolute
+                top -50px /* Hide tiny square to prevent scrollbars flickering on header */
+                left 0
+                content "Y"
+                noveCento noveM, 20px, #ddd, 40px
+                width 40px
+                height 40px
+                z-index 2
+                background linear-gradient(top, #555, #222)
+                text-align center
             a
                 &:hover
                     color #333
@@ -24,8 +39,6 @@
                 float left
                 noveCento noveN, 14px, #666, 40px
                 text-decoration none
-
-
         #prefs
         #showTopics
             cursor pointer
@@ -41,7 +54,7 @@
             &:hover
                 &:before
                     color #333
-        
+
         #prefs
             &:before
                 margin 0 10px 0 0
@@ -50,4 +63,44 @@
 
             @media screen and (min-width : 599px)
                 display none
-                    
+
+    /* When user scroll more than header height from top, we show a tiny square */
+    @media screen and (min-width : 599px)
+        &.scrolled
+
+            background none
+            position fixed
+            top 0
+            width 100%
+            z-index 1
+
+            .header
+                overflow visible
+
+                #prefs
+                #showTopics
+                #nav-container
+                    opacity 0
+                h1
+                    &:before
+                        top 10px
+                        opacity 1
+
+                    a
+                        opacity 0
+
+            /* When user hover the tiny square, full header comes back */
+            &:hover
+                background linear-gradient(top, #f3f3f3, #fff)
+                border-bottom 1px solid #eee
+
+                #prefs
+                #showTopics
+                #nav-container
+                h1 a
+                    opacity 1
+
+                /* Tiny square must then disappears and go left to let user access home link */
+                h1:before
+                    left -50px
+                    opacity 0
