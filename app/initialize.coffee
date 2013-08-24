@@ -12,12 +12,6 @@ $ ->
     title: 'Yahgo',
     controllerSuffix: '-controller',
     routes: routes
-  ###
-    Test for canvas resizing. Comment lines below if want to revert to img tag.
-    See also item.hbs & site-controller
-  ###
-  #$(window).on 'resize' : ->
-  #  $("#page-container .items .item .imgContainer canvas").each ->
-  #    canvasHelper.resizeCanvasToContainer $(this)
-  
-  #console.log $(window).width()
+
+
+  canvasHelper.windowEvents.initListeners()
