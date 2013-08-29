@@ -1,9 +1,9 @@
 {
-  "author": "Your Name",
-  "name": "package-name",
-  "description": "Package description",
+  "author": "Sébastien Van Eyck & Anthony Gachet",
+  "name": "yahgo",
+  "description": "Build dependencies for yahgo",
   "version": "0.0.1",
-  "homepage": "",
+  "homepage": "https://github.com/Yahgo/yahgo.git",
   "repository": {
     "type": "git",
     "url": ""
