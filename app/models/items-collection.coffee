@@ -37,22 +37,27 @@ module.exports = class ItemsCollection extends Collection
     request = $.ajax(xhrOptions)
     .done (response) =>
       
-      items = response.query.results.item
-      # We added a specific key for Google and can test if exists for each item
-      for item in items
-        # Yahoo now encapsulate image in a content key, but type can be something else than an image
-        imageTypePattern = /image/
-        if item.content isnt undefined and item.content.type isnt undefined and imageTypePattern.test item.content.type 
-          item.image = item.content
-        # since we don't use pipes anymore, the key doesn't exist anymore. We now look for a specific string in guid key 
-        googleTagPattern = /tag:news.google.com/
-
-        if item.guid isnt undefined and googleTagPattern.test item.guid.content 
-          item = @parseGoogleNews item
+      results = response.query.results
       
-      # Populate the collection
-      collection.reset items
-    
+      if results isnt null
+        items = results.item
+        # We added a specific key for Google and can test if exists for each item
+        for item in items
+          # Yahoo now encapsulate image in a content key, but type can be something else than an image
+          imageTypePattern = /image/
+          if item.content isnt undefined and item.content.type isnt undefined and imageTypePattern.test item.content.type 
+            item.image = item.content
+          # since we don't use pipes anymore, the specific key doesn't exist. We now look for a specific string in guid key 
+          googleTagPattern = /tag:news.google.com/
+  
+          if item.guid isnt undefined and googleTagPattern.test item.guid.content 
+            item = @parseGoogleNews item
+        
+        # Populate the collection
+        collection.reset items
+      else
+        alert "no items"
+      
 
     # Error case
     # TODO : improve error handling 
