@@ -11,7 +11,7 @@ module.exports = class SiteController extends Controller
   beforeAction: ->
     topics = Topics.countries[Topics.defaultCountry]
     @compose 'site', SiteView
-    @compose 'header', HeaderView, topics: topics
+    @compose 'header', HeaderView#, topics: topics
     
     if @items is undefined
       @items = new ItemsCollection null
