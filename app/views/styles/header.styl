@@ -8,8 +8,13 @@
 #header-container
 
     background linear-gradient(top, #f3f3f3, #fff)
+    border-bottom 1px solid #eee
     min-height 40px
-    
+    position absolute
+    z-index 2
+    width 100%
+    top 0
+
     .header
         position relative
         overflow hidden
@@ -69,6 +74,7 @@
         &.scrolled
 
             background none
+            border: none
             position fixed
             top 0
             width 100%
@@ -79,7 +85,6 @@
 
                 #prefs
                 #showTopics
-                #nav-container
                     opacity 0
                 h1
                     &:before
@@ -90,13 +95,17 @@
                         opacity 0
 
             /* When user hover the tiny square, full header comes back */
-            &:hover
+            &.showMe
                 background linear-gradient(top, #f3f3f3, #fff)
                 border-bottom 1px solid #eee
-
+                
+                + #nav-container
+                    display block
+                    position fixed
+                    top 0
+                
                 #prefs
                 #showTopics
-                #nav-container
                 h1 a
                     opacity 1
 

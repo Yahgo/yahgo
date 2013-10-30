@@ -37,89 +37,92 @@ body
     position relative
     overflow hidden
     width 100%
+    
+    .items
+        margin-top: 40px
 
-    .item
-
-        float left
-        
-        .item-container
-            overflow hidden
-            background #fff
-            border 1px solid #ddd
-            border-bottom 2px solid #ccc
-            border-top 1px solid #ccc
-                
-            .imgContainer
-                width 100%
+        .item
+    
+            float left
+            
+            .item-container
                 overflow hidden
-                position relative
-                border-bottom 1px solid #eee
-                
-                .centerBox
-                    left 50%
-                    position absolute
-                    height 100%
+                background #fff
+                border 1px solid #ddd
+                border-bottom 2px solid #ccc
+                border-top 1px solid #ccc
+                    
+                .imgContainer
                     width 100%
+                    overflow hidden
+                    position relative
+                    border-bottom 1px solid #eee
                     
-                    img
-                    canvas
-                        left -50%
-                        position relative
-                        width inherit
-                
-            .infos
-                margin 15px
-                
-                a
-                    text-decoration none
-                    &:hover
-                        color #333
-
-                .source
-                    
-                    
-                    
-                    .favicon
-                        margin 0 10px 0 0
-                        width 16px
-
-                    .favicon
-                    .dateAndName
-                        float left;
-                        noveCento(noveN, 11px, #999)
+                    .centerBox
+                        left 50%
+                        position absolute
+                        height 100%
+                        width 100%
                         
-                    .dateAndName
-                        width calc(100% - 30px)
-                        white-space nowrap
-                        text-overflow ellipsis
-                        overflow hidden
+                        img
+                        canvas
+                            left -50%
+                            position relative
+                            width inherit
+                    
+                .infos
+                    margin 15px
+                    
+                    a
+                        text-decoration none
                         &:hover
                             color #333
-                    
-                .title
-                    clear both
-                    float left
-                    noveCento(noveM, 14px, #666, 1.45em)
-                    
-                    span
-                        display block
-                        display -webkit-box
-                        -webkit-line-clamp 3
-                        -webkit-box-orient vertical
-                        overflow hidden
-                        text-overflow -o-ellipsis-lastline
-                        max-height 38px
-                        position relative
+    
+                    .source
                         
-                        &:after
-                            content ""
-                            text-align right
-                            position absolute
-                            bottom 0
-                            right 0
-                            width 30%
-                            height 1.2em
-                            background linear-gradient(left, rgba(255, 255, 255, 0), 95% rgba(255, 255, 255, 1))
+                        
+                        
+                        .favicon
+                            margin 0 10px 0 0
+                            width 16px
+    
+                        .favicon
+                        .dateAndName
+                            float left;
+                            noveCento(noveN, 11px, #999)
+                            
+                        .dateAndName
+                            width calc(100% - 30px)
+                            white-space nowrap
+                            text-overflow ellipsis
+                            overflow hidden
+                            &:hover
+                                color #333
+                        
+                    .title
+                        clear both
+                        float left
+                        noveCento(noveM, 14px, #666, 1.45em)
+                        
+                        span
+                            display block
+                            display -webkit-box
+                            -webkit-line-clamp 3
+                            -webkit-box-orient vertical
+                            overflow hidden
+                            text-overflow -o-ellipsis-lastline
+                            max-height 38px
+                            position relative
+                            
+                            &:after
+                                content ""
+                                text-align right
+                                position absolute
+                                bottom 0
+                                right 0
+                                width 30%
+                                height 1.2em
+                                background linear-gradient(left, rgba(255, 255, 255, 0), 95% rgba(255, 255, 255, 1))
                 
     /* Down to 480 */
     @media screen and (max-width: 480px)

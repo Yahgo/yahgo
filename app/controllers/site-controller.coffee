@@ -1,6 +1,7 @@
 Controller = require 'controllers/base/controller'
 SiteView = require 'views/site-view'
 HeaderView = require 'views/header-view'
+NavView = require 'views/nav-view'
 ItemsView = require 'views/items-view'
 ItemsCollection = require 'models/items-collection'
 Topics = require 'config/topics'
@@ -11,7 +12,8 @@ module.exports = class SiteController extends Controller
   beforeAction: ->
     topics = Topics.countries[Topics.defaultCountry]
     @compose 'site', SiteView
-    @compose 'header', HeaderView#, topics: topics
+    @compose 'header', HeaderView
+    @compose 'nav', NavView, topics: topics
     
     if @items is undefined
       @items = new ItemsCollection null

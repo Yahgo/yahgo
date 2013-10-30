@@ -7,6 +7,9 @@ yqlFetcher = require 'lib/yqlFetcher'
 module.exports = class ItemsCollection extends Collection
   model: ItemModel
   
+  errorObject =
+        error: true
+  
   fetch : (params) ->
     collection = @
     
@@ -56,14 +59,12 @@ module.exports = class ItemsCollection extends Collection
         # Populate the collection
         collection.reset items
       else
-        alert "no items"
+        collection.reset errorObject
       
 
     # Error case
     # TODO : improve error handling 
     .fail ->
-      errorObject =
-        error: true
     
       collection.reset errorObject
 
