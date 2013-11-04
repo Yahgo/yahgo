@@ -20,7 +20,8 @@ canvasHelper =
 
 
   windowEvents :
-
+    
+    lastScrollTop: 0
     initListeners : ->
       el = window
       el.addEventListener "scroll", @checkScrollPos, false
@@ -29,13 +30,25 @@ canvasHelper =
 
     checkScrollPos : ->
       header = $("header")
-      if $(window).scrollTop() > header.height()
+      scrollTop = $(window).scrollTop()
+      console.log @lastScrollTop
+      console.log scrollTop 
+      if scrollTop >= @lastScrollTop
+        console.log "scrolled up"
+        header.removeClass "scrolled"
+      else if scrollTop > header.height()
+        console.log "scrolled down"
         header.addClass "scrolled"
       else
+        console.log "scrolled up"
         header.removeClass "scrolled"
+
+      @lastScrollTop = scrollTop
 
     resizeAllCanvas : ->
       $("#page-container .items .item .imgContainer canvas").each ->
         canvasHelper.resizeCanvasToContainer $(this)
-
+        
+# Prevent creating new properties and stuff.
+Object.seal? canvasHelper
 module.exports = canvasHelper

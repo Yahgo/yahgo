@@ -21,10 +21,8 @@ module.exports = class SiteView extends View
     
 
   toggleHeader: (e) ->
-    console.log "test"
     target = $(e.currentTarget)
     header = @$el.find("#wrapper").find("header")
-    console.log target
     if target.is("#header-container")
       header.addClass "showMe"
     else

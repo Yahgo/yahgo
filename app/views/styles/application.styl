@@ -38,6 +38,57 @@ body
     overflow hidden
     width 100%
     
+    
+    @keyframes spinPreload
+            0%
+                transform rotate(0deg)
+            100%
+                transform rotate(360deg)
+    
+    /*
+     * PRELOADER
+     */
+    #preloader
+
+        &.showMe
+            display block
+        
+        
+        &.loading
+            opacity 1
+
+        position fixed
+        top calc(50% \- 35px)
+        display none
+        z-index 1
+        opacity 0
+        width 100%
+        height 100%
+        transition opacity .5s ease-in-out
+        
+        .square
+          border 0
+          width 80px
+          padding 0px
+          margin-left calc(50% \- 40px)
+          margin-left -webkit-calc(50% \- 40px)
+          margin-left -moz-calc(50% \- 40px)
+        
+        .spin
+          height 70px
+          width 70px
+          border-radius 50%
+          border dashed 5px #ccc
+          -webkit-animation-name spinPreload
+          -webkit-animation-duration 1.5s
+          -webkit-animation-iteration-count infinite
+          -webkit-animation-timing-function linear
+    
+    
+    /*
+     * ITEMS
+     */
+
     .items
         margin-top: 40px
 

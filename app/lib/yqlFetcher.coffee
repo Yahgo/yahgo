@@ -85,5 +85,9 @@ yqlFetcher =
       #  params.callback data
       #request.fail ->
       #  #console.log "failed loading news "
-    
+   
+   
+# Prevent creating new properties and stuff.
+Object.seal? yqlFetcher
+
 module.exports = yqlFetcher
