@@ -9,4 +9,21 @@ module.exports = class SiteView extends View
   regions:
     items: '#page-container'
     header: '#header-container'
+    nav: '#nav-container'
   template: template
+
+
+  initialize: (options) ->
+    
+    @delegate "mouseenter", "header", @toggleHeader
+    @delegate "mouseenter", "#page-container", @toggleHeader
+
+    
+
+  toggleHeader: (e) ->
+    target = $(e.currentTarget)
+    header = @$el.find("#wrapper").find("header")
+    if target.is("#header-container")
+      header.addClass "showMe"
+    else
+      header.removeClass "showMe"

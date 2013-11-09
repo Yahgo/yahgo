@@ -1,17 +1,20 @@
 Controller = require 'controllers/base/controller'
 SiteView = require 'views/site-view'
 HeaderView = require 'views/header-view'
+NavView = require 'views/nav-view'
 ItemsView = require 'views/items-view'
 ItemsCollection = require 'models/items-collection'
 Topics = require 'config/topics'
 canvasHelper = require 'lib/canvas-helper'
+preloader = require 'views/templates/preloader'
 
 module.exports = class SiteController extends Controller
 
   beforeAction: ->
     topics = Topics.countries[Topics.defaultCountry]
     @compose 'site', SiteView
-    @compose 'header', HeaderView#, topics: topics
+    @compose 'header', HeaderView
+    @compose 'nav', NavView, topics: topics
     
     if @items is undefined
       @items = new ItemsCollection null
@@ -19,18 +22,45 @@ module.exports = class SiteController extends Controller
 
 
   index: ->
+    @togglePreloader(true)
+    console.log "test"
     @items.fetch().then =>
+      @togglePreloader()
       @itemsView
-      
-      # Fill canvas.
-      ###
-      Test for canvas resizing. Comment lines below if want to revert to img tag.
-        See also item.hbs & initialize
-      ###
-      #@fillCanvas @itemsView.collection.models
+    
+    
+    # Fill canvas.
+    ###
+    Test for canvas resizing. Comment lines below if want to revert to img tag.
+      See also item.hbs & initialize
+    ###
+    #@fillCanvas @itemsView.collection.models
 
   showSection : (params) ->
-    @items.fetch(params).then @itemsView
+    @togglePreloader(true)
+    @items.fetch(params).then =>
+      @togglePreloader()
+      @itemsView
+  
+  togglePreloader: (show) ->
+    # Preloader can't stay in front (prevent access to news links)
+    # then we have to toggle a class to hide or show him for proper transition effect
+    preloader = $("#wrapper #preloader")
+    
+    if show
+      preloader.addClass "showMe"
+    else
+      setTimeout ->
+        preloader.removeClass "showMe"
+      ,500
+    
+    # Fix bug with transition on inserted dom elements
+    setTimeout ->
+      preloader.toggleClass "loading"
+    ,1
+    
+    
+  
   
   fillCanvas : (items) ->
 

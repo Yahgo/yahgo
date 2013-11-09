@@ -37,89 +37,143 @@ body
     position relative
     overflow hidden
     width 100%
+    
+    
+    @keyframes spinPreload
+            0%
+                transform rotate(0deg)
+            100%
+                transform rotate(360deg)
+    
+    /*
+     * PRELOADER
+     */
+    #preloader
 
-    .item
-
-        float left
+        &.showMe
+            display block
         
-        .item-container
-            overflow hidden
-            background #fff
-            border 1px solid #ddd
-            border-bottom 2px solid #ccc
-            border-top 1px solid #ccc
-                
-            .imgContainer
-                width 100%
+        
+        &.loading
+            opacity 1
+
+        position fixed
+        top calc(50% \- 35px)
+        display none
+        z-index 1
+        opacity 0
+        width 100%
+        height 100%
+        transition opacity .5s ease-in-out
+        
+        .square
+          border 0
+          width 80px
+          padding 0px
+          margin-left calc(50% \- 40px)
+          margin-left -webkit-calc(50% \- 40px)
+          margin-left -moz-calc(50% \- 40px)
+        
+        .spin
+          height 70px
+          width 70px
+          border-radius 50%
+          border dashed 5px #ccc
+          -webkit-animation-name spinPreload
+          -webkit-animation-duration 1.5s
+          -webkit-animation-iteration-count infinite
+          -webkit-animation-timing-function linear
+    
+    
+    /*
+     * ITEMS
+     */
+
+    .items
+        margin-top: 40px
+
+        .item
+    
+            float left
+            
+            .item-container
                 overflow hidden
-                position relative
-                border-bottom 1px solid #eee
-                
-                .centerBox
-                    left 50%
-                    position absolute
-                    height 100%
+                background #fff
+                border 1px solid #ddd
+                border-bottom 2px solid #ccc
+                border-top 1px solid #ccc
+                    
+                .imgContainer
                     width 100%
+                    overflow hidden
+                    position relative
+                    border-bottom 1px solid #eee
                     
-                    img
-                    canvas
-                        left -50%
-                        position relative
-                        width inherit
-                
-            .infos
-                margin 15px
-                
-                a
-                    text-decoration none
-                    &:hover
-                        color #333
-
-                .source
-                    
-                    
-                    
-                    .favicon
-                        margin 0 10px 0 0
-                        width 16px
-
-                    .favicon
-                    .dateAndName
-                        float left;
-                        noveCento(noveN, 11px, #999)
+                    .centerBox
+                        left 50%
+                        position absolute
+                        height 100%
+                        width 100%
                         
-                    .dateAndName
-                        width calc(100% - 30px)
-                        white-space nowrap
-                        text-overflow ellipsis
-                        overflow hidden
+                        img
+                        canvas
+                            left -50%
+                            position relative
+                            width inherit
+                    
+                .infos
+                    margin 15px
+                    
+                    a
+                        text-decoration none
                         &:hover
                             color #333
-                    
-                .title
-                    clear both
-                    float left
-                    noveCento(noveM, 14px, #666, 1.45em)
-                    
-                    span
-                        display block
-                        display -webkit-box
-                        -webkit-line-clamp 3
-                        -webkit-box-orient vertical
-                        overflow hidden
-                        text-overflow -o-ellipsis-lastline
-                        max-height 38px
-                        position relative
+    
+                    .source
                         
-                        &:after
-                            content ""
-                            text-align right
-                            position absolute
-                            bottom 0
-                            right 0
-                            width 30%
-                            height 1.2em
-                            background linear-gradient(left, rgba(255, 255, 255, 0), 95% rgba(255, 255, 255, 1))
+                        
+                        
+                        .favicon
+                            margin 0 10px 0 0
+                            width 16px
+    
+                        .favicon
+                        .dateAndName
+                            float left;
+                            noveCento(noveN, 11px, #999)
+                            
+                        .dateAndName
+                            width calc(100% - 30px)
+                            white-space nowrap
+                            text-overflow ellipsis
+                            overflow hidden
+                            &:hover
+                                color #333
+                        
+                    .title
+                        clear both
+                        float left
+                        noveCento(noveM, 14px, #666, 1.45em)
+                        
+                        span
+                            display block
+                            display -webkit-box
+                            -webkit-line-clamp 3
+                            -webkit-box-orient vertical
+                            overflow hidden
+                            text-overflow -o-ellipsis-lastline
+                            max-height 38px
+                            position relative
+                            
+                            &:after
+                                content ""
+                                text-align right
+                                position absolute
+                                bottom 0
+                                right 0
+                                width 30%
+                                height 1.2em
+                                background linear-gradient(left, rgba(255, 255, 255, 0), 95% rgba(255, 255, 255, 1))
                 
     /* Down to 480 */
     @media screen and (max-width: 480px)
