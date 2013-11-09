@@ -24,26 +24,39 @@ canvasHelper =
     lastScrollTop: 0
     initListeners : ->
       el = window
-      el.addEventListener "scroll", @checkScrollPos, false
+      el.addEventListener "scroll", =>
+        @checkScrollPos @
+      ,false
+      console.log @lastScrollTop
       #el.addEventListener "resize", @resizeAllCanvas, false
 
 
-    checkScrollPos : ->
+    checkScrollPos : (_this) ->
+      console.log _this
       header = $("header")
       scrollTop = $(window).scrollTop()
-      console.log @lastScrollTop
-      console.log scrollTop 
-      if scrollTop >= @lastScrollTop
-        console.log "scrolled up"
-        header.removeClass "scrolled"
-      else if scrollTop > header.height()
+      console.log ">-------------------------------------------"
+      console.log "_this.lastScrollTop"
+      console.log _this.lastScrollTop
+      console.log "scrollTop"
+      console.log scrollTop
+      
+      if scrollTop >= _this.lastScrollTop
         console.log "scrolled down"
-        header.addClass "scrolled"
+        header.removeClass "showMe"
       else
         console.log "scrolled up"
+        header.addClass "showMe"
+        
+      
+      
+      # Maybe some enhancements needed… The transition when scrollTop is close to header height could be smoothier.
+      if scrollTop > header.height()
+        header.addClass "scrolled"
+      else
         header.removeClass "scrolled"
 
-      @lastScrollTop = scrollTop
+      _this.lastScrollTop = scrollTop
 
     resizeAllCanvas : ->
       $("#page-container .items .item .imgContainer canvas").each ->
