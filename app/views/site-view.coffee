@@ -14,11 +14,11 @@ module.exports = class SiteView extends View
 
 
   initialize: (options) ->
-    
+
     @delegate "mouseenter", "header", @toggleHeader
     @delegate "mouseenter", "#page-container", @toggleHeader
 
-    
+
 
   toggleHeader: (e) ->
     target = $(e.currentTarget)

@@ -7,7 +7,7 @@ yqlFetcher = require 'lib/yqlFetcher'
 # Initialize the application on DOM ready event.
 $ ->
   'use strict'
-  
+
   new Application
     title: 'Yahgo',
     controllerSuffix: '-controller',
