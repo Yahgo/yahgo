@@ -1,8 +1,8 @@
 Collection = require 'models/base/collection'
 ItemModel = require 'models/item'
-#PipesID = require 'config/pipes'
 Topics = require 'config/topics'
 yqlFetcher = require 'lib/yqlFetcher'
+#PipesID = require 'config/pipes'
 
 module.exports = class ItemsCollection extends Collection
   model: ItemModel

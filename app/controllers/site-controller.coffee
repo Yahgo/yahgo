@@ -6,7 +6,7 @@ ErrorNotifierView = require 'views/errorNotifier-view'
 ItemsView = require 'views/items-view'
 ItemsCollection = require 'models/items-collection'
 Topics = require 'config/topics'
-canvasHelper = require 'lib/canvas-helper'
+layoutHelper = require 'lib/layout-helper'
 preloader = require 'views/templates/preloader'
 
 module.exports = class SiteController extends Controller
@@ -53,7 +53,6 @@ module.exports = class SiteController extends Controller
 
 
   forceReload : (params) ->
-    console.log params.route
     if params.route is undefined then params.route = ""
     Chaplin.utils.redirectTo {url:params.route}, {replace: true}
 
@@ -87,7 +86,7 @@ module.exports = class SiteController extends Controller
         do (imgURL, i) =>
           @requestEncode64 imgURL, (data) ->
             canvas = $("#page-container .items .item").eq(i).find(".imgContainer canvas")
-            canvasHelper.resizeCanvasToContainer canvas, data
+            layoutHelper.resizeCanvasToContainer canvas, data
 
   requestEncode64 : (url, callback) ->
     requestParams =

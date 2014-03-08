@@ -1,5 +1,5 @@
 Application = require 'application'
-canvasHelper = require 'lib/canvas-helper'
+layoutHelper = require 'lib/layout-helper'
 routes = require 'routes'
 
 # Initialize the application on DOM ready event.
@@ -12,4 +12,4 @@ $ ->
   	routes: routes
 
 
-  canvasHelper.windowEvents.initListeners()
+  layoutHelper.windowEvents.initListeners()

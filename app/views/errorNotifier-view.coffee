@@ -40,16 +40,15 @@ module.exports = class ErrorNotifier extends View
   # Handles where the user will be redirected
   goBack: ->
     #first we check if history has a previous entry
-    console.log @route
     checkPrev = @route.hasOwnProperty "previous"
     # We check too if previous route was not forced Reloaded
     if checkPrev && @route.previous.action isnt "forceReload"
       path = @route.previous.path
       callback = =>
-        # we force redirect, and replace the history entry
-        Chaplin.utils.redirectTo {url:path}, {replace: true}
-        #Chaplin.mediator.execute 'router:changeURL', 'site', {section: path}
-        #Chaplin.Router.changeURL path
+
+        Chaplin.utils.redirectTo {url:path}
+        # Seems backbone history and chaplin history are not linked...
+        #Backbone.history.navigate path, {replace: false, trigger: false}
 
     # No history entry ? Then, no redirection
     else
