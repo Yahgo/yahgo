@@ -6,8 +6,8 @@ module.exports = class NavView extends View
   className: 'nav'
   region: 'nav'
   template: template
-  
-  
+
+
   initialize: (options) ->
     #BB doesn't get back options anymore in view
     @options = options
@@ -15,4 +15,3 @@ module.exports = class NavView extends View
 
   getTemplateData: ->
     @options.topics
-    

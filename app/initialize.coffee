@@ -1,17 +1,15 @@
 Application = require 'application'
+layoutHelper = require 'lib/layout-helper'
 routes = require 'routes'
-topics = require 'config/topics'
-canvasHelper = require 'lib/canvas-helper'
-yqlFetcher = require 'lib/yqlFetcher'
 
 # Initialize the application on DOM ready event.
 $ ->
   'use strict'
-  
+
   new Application
-    title: 'Yahgo',
-    controllerSuffix: '-controller',
-    routes: routes
+  	title: 'Yahgo'
+  	controllerSuffix: '-controller'
+  	routes: routes
 
 
-  canvasHelper.windowEvents.initListeners()
+  layoutHelper.windowEvents.initListeners()

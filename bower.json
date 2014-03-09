@@ -1,6 +1,6 @@
 {
-  "name": "ostio",
-  "repo": "paulmillr/ostio",
+  "name": "Yahgo",
+  "repo": "yahgo/yahgo",
   "version": "0.0.1",
   "main": "public/javascripts/app.js",
   "ignore": [
@@ -9,12 +9,12 @@
     "components"
   ],
   "dependencies": {
-    "chaplin": "~0.11.3",
-    "console-polyfill": "~0.1.0",
-    "lodash": "~2.0.0",
-    "moment": "~2.0.0",
-    "jquery": "~2.0.3",
-    "normalize-css": "~2.1.2"
+    "chaplin": "~1.0.0",
+    "console-polyfill": "~0.1.1",
+    "lodash": "~2.4.1",
+    "moment": "~2.5.1",
+    "jquery": "~2.1.0",
+    "normalize-css": "~3.0.0"
   },
   "overrides": {
     "backbone": {
