@@ -13,8 +13,8 @@ countries :
 
           # MONDE
           name : "Monde"
-          section : "mondeee"
-          gTopic: "www"
+          section : "monde"
+          gTopic: "w"
         ,
 
 

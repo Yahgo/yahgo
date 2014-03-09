@@ -10,6 +10,7 @@ module.exports = class SiteView extends View
     items: '#page-container'
     header: '#header-container'
     nav: '#nav-container'
+    errorNotifier: '#error-container'
   template: template
 
 

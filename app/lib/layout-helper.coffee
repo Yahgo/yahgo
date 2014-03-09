@@ -1,5 +1,5 @@
 
-canvasHelper =
+layoutHelper =
 
   # Takes a canvas element, and fill it with image data
   resizeCanvasToContainer : (canvasElem, data) ->
@@ -49,9 +49,10 @@ canvasHelper =
       _this.lastScrollTop = scrollTop
 
     resizeAllCanvas : ->
+      that = @
       $("#page-container .items .item .imgContainer canvas").each ->
-        canvasHelper.resizeCanvasToContainer $(this)
+        that.resizeCanvasToContainer $(this)
 
 # Prevent creating new properties and stuff.
-Object.seal? canvasHelper
-module.exports = canvasHelper
+Object.seal? layoutHelper
+module.exports = layoutHelper

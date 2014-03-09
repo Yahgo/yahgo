@@ -1,8 +1,8 @@
 Collection = require 'models/base/collection'
 ItemModel = require 'models/item'
-#PipesID = require 'config/pipes'
 Topics = require 'config/topics'
 yqlFetcher = require 'lib/yqlFetcher'
+#PipesID = require 'config/pipes'
 
 module.exports = class ItemsCollection extends Collection
   model: ItemModel
@@ -38,7 +38,11 @@ module.exports = class ItemsCollection extends Collection
 
     xhrOptions = yqlFetcher.newsURL fetcherParams
 
+
+
     # Make request
+    # All failed answers (error code or empty items)
+    # are handled directly in site controller
     request = $.ajax(xhrOptions)
 
     .done (response) =>
@@ -62,20 +66,6 @@ module.exports = class ItemsCollection extends Collection
 
         # Populate the collection
         collection.reset items
-
-      else
-        console.log "ouch null"
-        #collection.reset errorObject
-
-
-    # Error case
-    # TODO : improve error handling
-    .fail ->
-      console.log "ouch 400"
-      #collection.reset errorObject
-
-
-
 
 
   # In Goole news, we must parse HTML descrption field to extract article link, source & image

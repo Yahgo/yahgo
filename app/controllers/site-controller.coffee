@@ -2,19 +2,21 @@ Controller = require 'controllers/base/controller'
 SiteView = require 'views/site-view'
 HeaderView = require 'views/header-view'
 NavView = require 'views/nav-view'
+ErrorNotifierView = require 'views/errorNotifier-view'
 ItemsView = require 'views/items-view'
 ItemsCollection = require 'models/items-collection'
 Topics = require 'config/topics'
-canvasHelper = require 'lib/canvas-helper'
+layoutHelper = require 'lib/layout-helper'
 preloader = require 'views/templates/preloader'
 
 module.exports = class SiteController extends Controller
 
-  beforeAction: ->
+  beforeAction: (params, route) ->
     topics = Topics.countries[Topics.defaultCountry]
     @reuse 'site', SiteView
     @reuse 'header', HeaderView
     @reuse 'nav', NavView, topics: topics
+    @route = route
 
     itemsCollection = @reuse 'items', ->
       # Still don't understand why the following var must be named item instead of items
@@ -34,8 +36,25 @@ module.exports = class SiteController extends Controller
 
   showSection : (params) ->
     @togglePreloader(true)
-    @reuse('items').fetch(params).then =>
-      @togglePreloader()
+    that = @
+    response = @reuse('items').fetch(params)
+
+    response.done (data) ->
+      that.togglePreloader()
+      # We'll get a 200 response even if items are null
+      if data.query.results is null
+        that.reuse 'errorNotifierView', ErrorNotifierView, {message: "empty", route: that.route}
+
+    response.fail ->
+      that.reuse 'errorNotifierView', ErrorNotifierView, {message: "fail", route: that.route}
+      that.togglePreloader()
+
+    return
+
+
+  forceReload : (params) ->
+    if params.route is undefined then params.route = ""
+    Chaplin.utils.redirectTo {url:params.route}, {replace: true}
 
 
   togglePreloader: (show) ->
@@ -67,7 +86,7 @@ module.exports = class SiteController extends Controller
         do (imgURL, i) =>
           @requestEncode64 imgURL, (data) ->
             canvas = $("#page-container .items .item").eq(i).find(".imgContainer canvas")
-            canvasHelper.resizeCanvasToContainer canvas, data
+            layoutHelper.resizeCanvasToContainer canvas, data
 
   requestEncode64 : (url, callback) ->
     requestParams =
