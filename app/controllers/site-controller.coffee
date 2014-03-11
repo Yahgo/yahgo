@@ -1,3 +1,4 @@
+Collection = require 'models/base/collection'
 Controller = require 'controllers/base/controller'
 SiteView = require 'views/site-view'
 HeaderView = require 'views/header-view'
@@ -5,6 +6,7 @@ NavView = require 'views/nav-view'
 ErrorNotifierView = require 'views/errorNotifier-view'
 ItemsView = require 'views/items-view'
 ItemsCollection = require 'models/items-collection'
+HistoryCollection = require 'models/items-collection'
 Topics = require 'config/topics'
 layoutHelper = require 'lib/layout-helper'
 preloader = require 'views/templates/preloader'
@@ -17,6 +19,9 @@ module.exports = class SiteController extends Controller
     @reuse 'header', HeaderView
     @reuse 'nav', NavView, topics: topics
     @route = route
+
+    @reuse 'history', ->
+      @collection = new HistoryCollection null
 
     itemsCollection = @reuse 'items', ->
       # Still don't understand why the following var must be named item instead of items
@@ -34,22 +39,40 @@ module.exports = class SiteController extends Controller
     ###
     #@fillCanvas @itemsView.collection.models
 
+
+
+  # Call news fetch and handles success and error xhr calls
   showSection : (params) ->
     @togglePreloader(true)
     that = @
     response = @reuse('items').fetch(params)
+    history = @reuse 'history'
 
     response.done (data) ->
       that.togglePreloader()
       # We'll get a 200 response even if items are null
       if data.query.results is null
-        that.reuse 'errorNotifierView', ErrorNotifierView, {message: "empty", route: that.route}
+        that.reuse 'errorNotifierView', ErrorNotifierView, {message: "empty", route: that.route, history: history}
+      else
+        # section has items, we try to push it in valid history
+        # We must pass history in args, because history doesn't seem to persist
+        # in checkSameLastHistory when called from promise context
+        that.checkSameLastHistory that.route, history
 
     response.fail ->
-      that.reuse 'errorNotifierView', ErrorNotifierView, {message: "fail", route: that.route}
+      that.reuse 'errorNotifierView', ErrorNotifierView, {message: "fail", route: that.route, history: history}
       that.togglePreloader()
 
     return
+
+
+
+  # Will push last history entry only if it's not the same as entry -2
+  # or if there's no entry for now
+  checkSameLastHistory : (route, history) ->
+    historyLength = history.collection.length
+    lastEntry = history.collection.at(historyLength - 1)
+    if((lastEntry is undefined) or (route.path isnt lastEntry.get "path")) then history.collection.push route
 
 
   forceReload : (params) ->
@@ -88,6 +111,7 @@ module.exports = class SiteController extends Controller
             canvas = $("#page-container .items .item").eq(i).find(".imgContainer canvas")
             layoutHelper.resizeCanvasToContainer canvas, data
 
+
   requestEncode64 : (url, callback) ->
     requestParams =
       url : "/encode64/"+url
@@ -102,12 +126,7 @@ module.exports = class SiteController extends Controller
   ###
   Yahoo provide a string with two urls.
   The first one is the yahoo sized image, and the second one is the original image
-
-  TODO : Choisir un moyen d'afficher soit la petite ou la grande version de l'image
-  Soit on affiche la petite puis on vérifie la taille du container pour ensuite décider de prendre la grande
-  Soit on se base sur le window height et width pour décider si le device aura besoin d'une image plus grande que celle fournie par yahoo
-  À voir aussi du côté de canvas pour affichage/resize de la grande image
-  ####
+  ###
   getYahooLargeImage: (items) ->
     for item in items
       unless item.image is undefined
