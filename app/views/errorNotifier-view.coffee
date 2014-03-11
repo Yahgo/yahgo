@@ -12,6 +12,8 @@ module.exports = class ErrorNotifier extends View
     #BB doesn't get back options anymore in view
     @options = options
     @route = options.route
+    @history = options.history
+    console.log @history
     that = @
     setTimeout ->
       that.$el.addClass "showMe"
@@ -39,15 +41,16 @@ module.exports = class ErrorNotifier extends View
 
   # Handles where the user will be redirected
   goBack: ->
-    #first we check if history has a previous entry
-    checkPrev = @route.hasOwnProperty "previous"
-    # We check too if previous route was not forced Reloaded
-    if checkPrev && @route.previous.action isnt "forceReload"
-      path = @route.previous.path
+    #first we check if history contains at least an entry
+    historyLength = @history.collection.length
+    if historyLength > 0
+      # Grab path from model in collection
+      path = @history.collection.at(historyLength - 1).get "path"
       callback = =>
 
         Chaplin.utils.redirectTo {url:path}
-        # Seems backbone history and chaplin history are not linked...
+        # Seems backbone history and chaplin history are not linked,
+        # so for now we can't use simply that :
         #Backbone.history.navigate path, {replace: false, trigger: false}
 
     # No history entry ? Then, no redirection
