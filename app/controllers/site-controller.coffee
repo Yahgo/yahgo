@@ -32,21 +32,14 @@ module.exports = class SiteController extends Controller
       @itemsCollectionView = new ItemsView collection: itemsCollection
 
 
-    # Fill canvas.
-    ###
-    Test for canvas resizing. Comment lines below if want to revert to img tag.
-      See also item.hbs & initialize
-    ###
-    #@fillCanvas @itemsView.collection.models
-
-
 
   # Call news fetch and handles success and error xhr calls
   showSection : (params) ->
     @togglePreloader(true)
     that = @
-    response = @reuse('items').fetch(params)
     history = @reuse 'history'
+    itemsCollection = @reuse('items')
+    response = itemsCollection.fetch(params)
 
     response.done (data) ->
       that.togglePreloader()
@@ -58,6 +51,11 @@ module.exports = class SiteController extends Controller
         # We must pass history in args, because history doesn't seem to persist
         # in checkSameLastHistory when called from promise context
         that.checkSameLastHistory that.route, history
+
+        #Canvas
+        #See also item.hbs
+        #Test for canvas resizing. Comment line below if want to revert to img tag.
+        #that.fillCanvas itemsCollection.models
 
     response.fail ->
       that.reuse 'errorNotifierView', ErrorNotifierView, {message: "fail", route: that.route, history: history}
