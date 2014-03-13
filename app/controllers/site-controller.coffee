@@ -52,11 +52,6 @@ module.exports = class SiteController extends Controller
         # in checkSameLastHistory when called from promise context
         that.checkSameLastHistory that.route, history
 
-        #Canvas
-        #See also item.hbs
-        #Test for canvas resizing. Comment line below if want to revert to img tag.
-        #that.fillCanvas itemsCollection.models
-
     response.fail ->
       that.reuse 'errorNotifierView', ErrorNotifierView, {message: "fail", route: that.route, history: history}
       that.togglePreloader()
@@ -94,31 +89,6 @@ module.exports = class SiteController extends Controller
     setTimeout ->
       preloader.toggleClass "loading"
     ,1
-
-
-
-
-  fillCanvas : (items) ->
-
-    for item, i in items
-      imageObject = item.attributes.image
-      unless imageObject is undefined
-        imgURL = encodeURIComponent imageObject.url
-        do (imgURL, i) =>
-          @requestEncode64 imgURL, (data) ->
-            canvas = $("#page-container .items .item").eq(i).find(".imgContainer canvas")
-            layoutHelper.resizeCanvasToContainer canvas, data
-
-
-  requestEncode64 : (url, callback) ->
-    requestParams =
-      url : "/encode64/"+url
-    request = $.ajax requestParams
-    request.done (data) ->
-      #console.log "success loading image "+url
-      callback data
-    request.fail ->
-      #console.log "failed loading image "+url
 
 
   ###
