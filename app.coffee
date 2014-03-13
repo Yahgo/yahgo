@@ -5,16 +5,19 @@ app = express()
 app.use(express.static __dirname+'/public')
 
 exports.startServer = (port, path, callback) ->
-  
+
   # Request image and convert it to base64
   app.get '/encode64/:imgURL', (req, res) ->
-    
+
     if req.params.imgURL
-      
+
       # Original URL has been encoded, we must decode it
       imgURL = unescape req.params.imgURL
-      
-      # Get the distant image      
+      pattern = /^(\/\/)/
+      if pattern.test imgURL
+        imgURL += req.protocol + ':' + imgURL
+
+      # Get the distant image
       requestParams =
         uri: imgURL
         encoding: 'binary'
@@ -23,20 +26,21 @@ exports.startServer = (port, path, callback) ->
         followRedirect: true
         maxRedirects: 10
       request requestParams, (error, response, body) ->
-        
+
         if not error and response.statusCode is 200
           # Image won't be usable if not prefixed by its type and encoding method name
           dataUriPrefix = "data:" + response.headers["content-type"] + ";base64,"
           image = new Buffer(body.toString(), "binary").toString("base64")
           image = dataUriPrefix + image
-          
-          # We send back encoded image 
+
+          # We send back encoded image
           res.send image
         else
           # TODO : better error handling (json response)
           res.send "error request"
 
-  # Take any other route and serve it  
+
+  # Take any other route and serve it
   app.get '*', (req, res) ->
     res.sendfile './public/index.html'
 
