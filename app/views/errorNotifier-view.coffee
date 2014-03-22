@@ -13,7 +13,6 @@ module.exports = class ErrorNotifier extends View
     @options = options
     @route = options.route
     @history = options.history
-    console.log @history
     that = @
     setTimeout ->
       that.$el.addClass "showMe"

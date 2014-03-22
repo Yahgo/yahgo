@@ -32,21 +32,14 @@ module.exports = class SiteController extends Controller
       @itemsCollectionView = new ItemsView collection: itemsCollection
 
 
-    # Fill canvas.
-    ###
-    Test for canvas resizing. Comment lines below if want to revert to img tag.
-      See also item.hbs & initialize
-    ###
-    #@fillCanvas @itemsView.collection.models
-
-
 
   # Call news fetch and handles success and error xhr calls
   showSection : (params) ->
     @togglePreloader(true)
     that = @
-    response = @reuse('items').fetch(params)
     history = @reuse 'history'
+    itemsCollection = @reuse('items')
+    response = itemsCollection.fetch(params)
 
     response.done (data) ->
       that.togglePreloader()
@@ -96,31 +89,6 @@ module.exports = class SiteController extends Controller
     setTimeout ->
       preloader.toggleClass "loading"
     ,1
-
-
-
-
-  fillCanvas : (items) ->
-
-    for item, i in items
-      imageObject = item.attributes.image
-      unless imageObject is undefined
-        imgURL = encodeURIComponent imageObject.url
-        do (imgURL, i) =>
-          @requestEncode64 imgURL, (data) ->
-            canvas = $("#page-container .items .item").eq(i).find(".imgContainer canvas")
-            layoutHelper.resizeCanvasToContainer canvas, data
-
-
-  requestEncode64 : (url, callback) ->
-    requestParams =
-      url : "/encode64/"+url
-    request = $.ajax requestParams
-    request.done (data) ->
-      #console.log "success loading image "+url
-      callback data
-    request.fail ->
-      #console.log "failed loading image "+url
 
 
   ###
