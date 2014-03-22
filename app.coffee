@@ -27,6 +27,9 @@ exports.startServer = (port, path, callback) ->
         maxRedirects: 10
       request requestParams, (error, response, body) ->
 
+        imageObject =
+          imageData: null
+
         if not error and response.statusCode is 200
           # Image won't be usable if not prefixed by its type and encoding method name
           dataUriPrefix = "data:" + response.headers["content-type"] + ";base64,"
@@ -34,10 +37,9 @@ exports.startServer = (port, path, callback) ->
           image = dataUriPrefix + image
 
           # We send back encoded image
-          res.send image
-        else
-          # TODO : better error handling (json response)
-          res.send "error request"
+          imageObject.imageData = image
+
+        res.send imageObject
 
 
   # Take any other route and serve it
