@@ -15,7 +15,7 @@ exports.startServer = (port, path, callback) ->
       imgURL = unescape req.params.imgURL
       pattern = /^(\/\/)/
       if pattern.test imgURL
-        imgURL += req.protocol + ':' + imgURL
+        imgURL = req.protocol + ':' + imgURL
 
       # Get the distant image
       requestParams =
