@@ -2,23 +2,51 @@
 layoutHelper =
 
   # Takes a canvas element, and fill it with image data
-  resizeCanvasToContainer : (canvasElem, data) ->
+  resizeCanvasToContainer : (canvasElem, data, callback) ->
+
+    if data is null
+      return
 
     containerWidth  = canvasElem.parent().width()
     containerHeight  = canvasElem.parent().height()
+    canvasElem[0].width = containerWidth
+    canvasElem[0].height = containerHeight
     if data is undefined
       #No data provided, we have to extract data from canvas
       data = canvasElem[0].toDataURL()
 
     ctx = canvasElem[0].getContext '2d'
+
+    # remove smoothing
+    ctx.mozImageSmoothingEnabled = false
+    ctx.webkitImageSmoothingEnabled = false
+    ctx.imageSmoothingEnabled = false
     img = new Image
     img.src = data
+
     img.onload = ->
       #get image size
       imgWidth = img.width
       imgHeight = img.height
-      #redraw
-      ctx.drawImage img, 0, 0, imgWidth, imgHeight
+
+      cRatio = containerWidth / containerHeight
+      iRatio = imgWidth / imgHeight
+
+      # Comparing ratios
+      if cRatio > iRatio
+        newWidth = containerWidth
+        newHeight = (containerWidth / imgWidth) * imgHeight
+
+      else if cRatio < iRatio
+        newHeight = containerHeight
+        newWidth = (containerHeight / imgHeight) * imgWidth
+      else
+        newHeight = containerHeight
+        newWidth = containerWidth
+
+      #draw
+      ctx.drawImage img, 0, 0, newWidth, newHeight
+      callback()
 
 
   windowEvents :
@@ -26,10 +54,19 @@ layoutHelper =
     lastScrollTop: 0
     initListeners : ->
       el = window
+
       el.addEventListener "scroll", =>
         @checkScrollPos @
       ,false
-      #el.addEventListener "resize", @resizeAllCanvas, false
+
+      el.addEventListener "resize", ->
+        #Throttle resize event
+        timer = setTimeout ->
+          clearTimeout(timer)
+          #Publish event
+          Chaplin.mediator.publish 'windowResize'
+          ,250
+      ,false
 
 
     checkScrollPos : (_this) ->
@@ -54,7 +91,7 @@ layoutHelper =
     resizeAllCanvas : ->
       that = @
       $("#page-container .items .item .imgContainer canvas").each ->
-        that.resizeCanvasToContainer $(this)
+        layoutHelper.resizeCanvasToContainer $(this)
 
 # Prevent creating new properties and stuff.
 Object.seal? layoutHelper
