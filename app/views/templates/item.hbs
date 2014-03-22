@@ -1,5 +1,5 @@
 
-<div class="item-container">
+<div class="item-container {{#unless image.url}}noImage{{/unless}}">
 	{{#unless error}}
 		{{#if image}}
 			{{#if image.url}}

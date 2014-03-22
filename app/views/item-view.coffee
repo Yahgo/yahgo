@@ -19,6 +19,7 @@ module.exports = class ItemView extends View
 
 	render: ->
 		super
+		@getYahooLargeImage()
 		@getCanvasData()
 
 	listen:
@@ -44,7 +45,9 @@ module.exports = class ItemView extends View
 		if data isnt null && data.imageData isnt null
 			canvas = imgContainer.find "canvas"
 			callback = =>
-				@closePixelate canvas
+				# we only pixelate low res image
+				unless @model.attributes.image.largeSize
+					@closePixelate canvas
 			layoutHelper.resizeCanvasToContainer canvas, data.imageData, callback
 
 		else
@@ -76,3 +79,21 @@ module.exports = class ItemView extends View
 		request.fail ->
 			callback null
 			#console.log "failed loading image "+url
+
+	###
+	Yahoo provide a string with two urls.
+	The first one is the yahoo sized image, and the second one is the original image
+	###
+	getYahooLargeImage: ->
+		item = @model.attributes
+		unless item.image is undefined
+		    currentURL = item.image.url
+		    # We capture the second http sequence
+		    pattern = /.+(((?:http|https):)?\/\/.+)/
+		    testURL = pattern.test(currentURL)
+		    if testURL
+		    	item.image.url = RegExp.$1
+		    	console.log item.image.url
+		    	item.image.largeSize = true
+		    else
+		    	currentURL

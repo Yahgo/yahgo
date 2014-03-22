@@ -16,11 +16,6 @@ layoutHelper =
       data = canvasElem[0].toDataURL()
 
     ctx = canvasElem[0].getContext '2d'
-
-    # remove smoothing
-    ctx.mozImageSmoothingEnabled = false
-    ctx.webkitImageSmoothingEnabled = false
-    ctx.imageSmoothingEnabled = false
     img = new Image
     img.src = data
 

@@ -89,17 +89,3 @@ module.exports = class SiteController extends Controller
     setTimeout ->
       preloader.toggleClass "loading"
     ,1
-
-
-  ###
-  Yahoo provide a string with two urls.
-  The first one is the yahoo sized image, and the second one is the original image
-  ###
-  getYahooLargeImage: (items) ->
-    for item in items
-      unless item.image is undefined
-        currentURL = item.image.url
-        # We capture the second http sequence
-        pattern = /.+(http:\/\/.+)/
-        testURL = pattern.test(currentURL)
-        item.image.url = if testURL then RegExp.$1 else currentURL
