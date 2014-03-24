@@ -57,10 +57,11 @@ module.exports = class ItemView extends View
 		options =
 			brushes:
 				[
-					{shape: 'diamond', resolution: 12, size: 27, offset: 9},
-					{shape: 'circle', resolution: 50, size: 24, offset: 0, alpha: 0.7},
-					{shape: 'square', resolution: 70, size: 12, offset: 4, alpha: 0.5},
-					{shape: 'circle', resolution: 10, size: 11, offset: 8, alpha: 0.4}
+					{ resolution: 16 },
+					{ shape : 'circle', resolution : 16, offset: 7 },
+					{ shape : 'circle', resolution : 16, size: 13, offset: 7 },
+					{ shape : 'circle', resolution : 16, size: 10, offset: 6 },
+					{ shape : 'circle', resolution : 16, size: 6, offset: 4 }
 				]
 
 		# Lez pixelate !
