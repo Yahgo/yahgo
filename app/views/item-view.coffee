@@ -94,7 +94,6 @@ module.exports = class ItemView extends View
 		    testURL = pattern.test(currentURL)
 		    if testURL
 		    	item.image.url = RegExp.$1
-		    	console.log item.image.url
 		    	item.image.largeSize = true
 		    else
 		    	currentURL
