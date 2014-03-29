@@ -10,6 +10,7 @@ module.exports = class SiteView extends View
     items: '#page-container'
     header: '#header-container'
     nav: '#nav-container'
+    preloader: '#preloader-container'
     errorNotifier: '#error-container'
   template: template
 
@@ -18,7 +19,6 @@ module.exports = class SiteView extends View
 
     @delegate "mouseenter", "header", @toggleHeader
     @delegate "mouseenter", "#page-container", @toggleHeader
-
 
 
   toggleHeader: (e) ->
