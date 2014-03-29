@@ -4,12 +4,11 @@ routes = require 'routes'
 
 # Initialize the application on DOM ready event.
 $ ->
-  'use strict'
+	'use strict'
 
-  new Application
-  	title: 'Yahgo'
-  	controllerSuffix: '-controller'
-  	routes: routes
+	new Application
+		title: 'Yahgo'
+		controllerSuffix: '-controller'
+		routes: routes
 
-
-  layoutHelper.windowEvents.initListeners()
+	layoutHelper.windowEvents.initListeners()

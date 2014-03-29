@@ -22,8 +22,13 @@ module.exports = class ItemsCollection extends Collection
         ,
           name: "google"
         ]
-      category : if params is null or params.section is undefined then '' else params.section
-      country : if params is null or params.country is undefined then Topics.defaultCountry else params.country
+      # Get current category
+      category : if params is null or params.section is undefined
+      then '' else params.section
+
+      # Get current country
+      country : if params is null or params.country is undefined
+      then Topics.defaultCountry else params.country
 
     # Find google topic in local Topics
     unless params is null or params.section is undefined
@@ -52,23 +57,31 @@ module.exports = class ItemsCollection extends Collection
       # We'll get a 200 response even if items are null
       if results isnt null
         items = results.item
-        # We added a specific key for Google and can test if exists for each item
+        # We added a specific key for Google
+        # and now can test if exists for each item
         for item in items
-          # Yahoo now encapsulate image in a content key, but type can be something else than an image
-          imageTypePattern = /image/
-          if item.content isnt undefined and item.content.type isnt undefined and imageTypePattern.test item.content.type
-            item.image = item.content
-          # since we don't use pipes anymore, the specific key doesn't exist. We now look for a specific string in guid key
-          googleTagPattern = /tag:news.google.com/
 
-          if item.guid isnt undefined and googleTagPattern.test item.guid.content
+          # Yahoo now encapsulates image in a content key,
+          # but type can be something else than an image
+          imageTypePattern = /image/
+          if item.content isnt undefined and
+          item.content.type isnt undefined and
+          imageTypePattern.test item.content.type
+            item.image = item.content
+
+          # Since we don't use pipes anymore, the specific key doesn't exist.
+          # We now look for a specific string in guid key
+          googleTagPattern = /tag:news.google.com/
+          if item.guid isnt undefined and
+          googleTagPattern.test item.guid.content
             item = @parseGoogleNews item
 
         # Populate the collection
         collection.reset items
 
 
-  # In Goole news, we must parse HTML descrption field to extract article link, source & image
+  # In Goole news, we must parse HTML descrption field
+  # to extract article link, source & image
   parseGoogleNews: (item) ->
     description = item.description
     link = item.link
@@ -101,7 +114,12 @@ module.exports = class ItemsCollection extends Collection
           prefixPattern = /(http|https):\/\/(w{3})?/
           item.source.content = item.source.url.replace prefixPattern, ""
 
+    # Return formatted item
     item
+
+
+
+
 
 
 # OLD FETCH for pipes
