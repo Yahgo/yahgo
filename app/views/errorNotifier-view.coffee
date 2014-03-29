@@ -12,7 +12,7 @@ module.exports = class ErrorNotifier extends View
     #BB doesn't get back options anymore in view
     @options = options
     @route = options.route
-    @history = options.history
+    @customHistory = options.customHistory
     that = @
     setTimeout ->
       that.$el.addClass "showMe"
@@ -41,10 +41,10 @@ module.exports = class ErrorNotifier extends View
   # Handles where the user will be redirected
   goBack: ->
     #first we check if history contains at least an entry
-    historyLength = @history.collection.length
+    historyLength = @customHistory.length
     if historyLength > 0
       # Grab path from model in collection
-      path = @history.collection.at(historyLength - 1).get "path"
+      path = @customHistory.at(historyLength - 1).get "path"
       callback = =>
 
         Chaplin.utils.redirectTo {url:path}

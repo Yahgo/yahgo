@@ -9,27 +9,22 @@ module.exports = class NavView extends View
 
 
   initialize: (options) ->
-    #BB doesn't get back options anymore in view
+    #Attach options to view
     @options = options
-
-    #events
-    @delegate 'click', '#topics li', @setActiveSection
-
+    @subscribeEvent 'updateMenus', @updateMenus
 
   getTemplateData: ->
     @options.topics
 
+  updateMenus: (path) ->
+    topics = @$el.find "#topics li"
+    # Remove all 'active' states
+    topics.removeClass 'active'
 
-  setActiveSection: (e) ->
-  	console.log e
-  	console.log @$el
-  	#Remove all 'active' states
-  	@$el.find("#topics li").removeClass 'active'
-  	#'active' states on current li
-  	currentMenu = $(e.currentTarget)
-  	currentMenu.addClass 'active'
-  	newTitle = currentMenu.find('a').html()
-  	# Set Page title
-  	Chaplin.mediator.publish 'adjustTitle', newTitle
-
-
+    ### Update currentMenu ###
+    # Remove `/` for home
+    currentPath = if path is '' then '/' else path
+    currentMenu = topics.find 'a[href="' + currentPath + '"]'
+    currentMenu.parent().addClass 'active'
+    newTitle = currentMenu.html()
+    Chaplin.mediator.publish 'changeTitle', newTitle
