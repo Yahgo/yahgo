@@ -4,16 +4,13 @@ layoutHelper =
   # Takes a canvas element, and fill it with image data
   resizeCanvasToContainer : (canvasElem, data, callback) ->
 
-    if data is null
+    unless data
       return
 
     containerWidth  = canvasElem.parent().width()
     containerHeight  = canvasElem.parent().height()
     canvasElem[0].width = containerWidth
     canvasElem[0].height = containerHeight
-    if data is undefined
-      #No data provided, we have to extract data from canvas
-      data = canvasElem[0].toDataURL()
 
     ctx = canvasElem[0].getContext '2d'
     img = new Image
@@ -41,7 +38,8 @@ layoutHelper =
 
       #draw
       ctx.drawImage img, 0, 0, newWidth, newHeight
-      callback()
+      if callback then callback()
+
 
 
   windowEvents :
@@ -73,8 +71,6 @@ layoutHelper =
       else
         header.addClass "showMe"
 
-
-
       # Maybe some enhancements needed… The transition when scrollTop is close to header height could be smoothier.
       if scrollTop > header.height()
         header.addClass "scrolled"
@@ -83,10 +79,7 @@ layoutHelper =
 
       _this.lastScrollTop = scrollTop
 
-    resizeAllCanvas : ->
-      that = @
-      $("#page-container .items .item .imgContainer canvas").each ->
-        layoutHelper.resizeCanvasToContainer $(this)
+
 
 # Prevent creating new properties and stuff.
 Object.seal? layoutHelper
