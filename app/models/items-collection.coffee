@@ -81,7 +81,7 @@ module.exports = class ItemsCollection extends Collection
             item = @parseYahooNews item
 
           # We don't show description when an image is displayed
-          unless item.description is undefined and item.image is undefined
+          if item.image is undefined and item.description
             item.shortDescription =
               if item.shortDescription isnt undefined
               then @shortenText item.shortDescription
@@ -109,7 +109,7 @@ module.exports = class ItemsCollection extends Collection
 
     ### Short description ###
     # Check if we can find a description text to make a short one (only if no image found)
-    if descriptionPattern.test(description) is true and item.image is undefined
+    if item.image is undefined and descriptionPattern.test(description) is true
       item.shortDescription = RegExp.$1
 
 
@@ -139,11 +139,19 @@ module.exports = class ItemsCollection extends Collection
 
   # Yahoo item parsing
   parseYahooNews: (item) ->
+    description = item.description
+
+    # Check if we can find an image
+    # when no image key found
+    imgPattern = /<img.*src=["']([^"']+)["']/
+    if item.image is undefined and imgPattern.test(description)
+      item.image =
+        url : RegExp.$1
 
     ### Short description ###
     descriptionPattern = /<(?:.+)>([^<]+)/
     # See if we have to remove html tags (necessary only if no image found)
-    if descriptionPattern.test item.description and item.image is undefined
+    if item.image is undefined and descriptionPattern.test(description)
       item.shortDescription = RegExp.$1
     # Return formatted item
     item

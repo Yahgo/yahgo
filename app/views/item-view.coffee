@@ -90,10 +90,11 @@ module.exports = class ItemView extends View
 		unless item.image is undefined
 		    currentURL = item.image.url
 		    # We capture the second http sequence
-		    pattern = /.+(((?:http|https):)?\/\/.+)/
+		    pattern = /.+((?:http|https):(?:\/{2}).+)/
 		    testURL = pattern.test(currentURL)
 		    if testURL
 		    	item.image.url = RegExp.$1
+		    	console.log
 		    	item.image.largeSize = true
 		    else
 		    	currentURL
