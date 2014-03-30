@@ -43,8 +43,6 @@ module.exports = class SiteController extends Controller
 
     preloader = @reuse 'preloader'
     customHistory = @reuse 'customHistory'
-    console.log 'customHistory init'
-    console.log customHistory
     itemsCollection = @reuse 'items'
     response = itemsCollection.fetch(params)
 
@@ -56,8 +54,6 @@ module.exports = class SiteController extends Controller
       that.togglePreloader(false, preloader)
       # We'll get a 200 response even if items are null
       if data.query.results is null
-        console.log 'customHistory'
-        console.log customHistory
         that.reuse 'errorNotifierView', ErrorNotifierView, {message: "empty", route: that.route, customHistory: customHistory}
       else
         # section has items, we try to push it in valid customHistory

@@ -76,6 +76,17 @@ module.exports = class ItemsCollection extends Collection
           googleTagPattern.test item.guid.content
             item = @parseGoogleNews item
 
+          # Not Google one ? Let's parse Yahoo item
+          else
+            item = @parseYahooNews item
+
+          # We don't show description when an image is displayed
+          unless item.description is undefined and item.image is undefined
+            item.shortDescription =
+              if item.shortDescription isnt undefined
+              then @shortenText item.shortDescription
+              else @shortenText item.description
+
         # Populate the collection
         collection.reset items
 
@@ -84,6 +95,7 @@ module.exports = class ItemsCollection extends Collection
   # to extract article link, source & image
   parseGoogleNews: (item) ->
     description = item.description
+    descriptionPattern = /<font size="-1"(?:[^<])*>((?:[^<])+)/
     link = item.link
     sourcePattern = /<font size="-2">([^<]+)/
     imgPattern = /<img.*src=["']([^"']+)["']/
@@ -94,6 +106,12 @@ module.exports = class ItemsCollection extends Collection
     # Check if we can find a source
     if sourcePattern.test description
       item.source.content = RegExp.$1
+
+    ### Short description ###
+    # Check if we can find a description text to make a short one (only if no image found)
+    if descriptionPattern.test(description) is true and item.image is undefined
+      item.shortDescription = RegExp.$1
+
 
     # Check if we can find an image
     if imgPattern.test description
@@ -118,6 +136,24 @@ module.exports = class ItemsCollection extends Collection
     item
 
 
+
+  # Yahoo item parsing
+  parseYahooNews: (item) ->
+
+    ### Short description ###
+    descriptionPattern = /<(?:.+)>([^<]+)/
+    # See if we have to remove html tags (necessary only if no image found)
+    if descriptionPattern.test item.description and item.image is undefined
+      item.shortDescription = RegExp.$1
+    # Return formatted item
+    item
+
+
+  shortenText: (text) ->
+    cut = text.indexOf ' ', 1200
+    if cut is -1
+      return text
+    text.substring 0, cut
 
 
 
