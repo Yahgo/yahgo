@@ -27,7 +27,6 @@ module.exports = class ItemView extends View
 
 
 	getCanvasData : ->
-
 		imageObject = @model.attributes.image
 		imgData = @model.attributes.imgData
 		unless imageObject is undefined
@@ -35,9 +34,12 @@ module.exports = class ItemView extends View
 				imgURL = encodeURIComponent imageObject.url
 				#Get data from request
 				@requestEncode64 imgURL, (data) =>
-					@renderCanvas data
+					if data isnt null
+						# Store data in model
+						@model.attributes.imgData = data
+						@renderCanvas data
 			else
-				@renderCanvas {imageData: imgData}
+				@renderCanvas imgData
 
 
 	renderCanvas : (data) ->
@@ -94,7 +96,6 @@ module.exports = class ItemView extends View
 		    testURL = pattern.test(currentURL)
 		    if testURL
 		    	item.image.url = RegExp.$1
-		    	console.log
 		    	item.image.largeSize = true
 		    else
 		    	currentURL
