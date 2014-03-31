@@ -1,6 +1,6 @@
 # YQL fetcher
 
-yqlFetcher =
+class YqlFetcher
 
   # Combine news
   #   params
@@ -82,6 +82,6 @@ yqlFetcher =
         method : "GET"
 
 # Prevent creating new properties and stuff.
-Object.seal? yqlFetcher
+Object.seal? YqlFetcher
 
-module.exports = yqlFetcher
+module.exports = new YqlFetcher
