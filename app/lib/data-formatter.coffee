@@ -95,6 +95,19 @@ class DataFormatter
     # See if we have to remove html tags (necessary only if no image found)
     if item.image is undefined and descriptionPattern.test(description)
       item.shortDescription = RegExp.$1
+
+    # Get yahoo larger image
+    unless item.image is undefined
+        currentURL = item.image.url
+        # We capture the second http sequence
+        pattern = /.+((?:http|https):(?:\/{2}).+)/
+        testURL = pattern.test currentURL
+        if testURL
+          item.image.url = RegExp.$1
+          item.image.largeSize = true
+        else
+          currentURL
+
     # Return formatted item
     item
 

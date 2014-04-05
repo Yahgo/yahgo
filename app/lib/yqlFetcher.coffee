@@ -20,7 +20,15 @@ class YqlFetcher
       if(url isnt false)
         # First operator must be "where"
         yqlOperator = if i is 0 then "where" else "or"
-        path += yqlOperator + " url='" + url + "' "
+        path += yqlOperator + " url='" + url
+        # Check if any params have already been set
+        pattern = /\?+/
+        operator = if pattern.test(path) then "&" else "?"
+        # Query key is `p` for yahoo and `q` for google
+        queryKey = if service.name is 'yahoo' then 'p' else 'q'
+        # Append query if exists
+        path += if params.query then operator + queryKey + "=" + params.query else ''
+        path += "' "
         i++
     path
 
@@ -35,9 +43,9 @@ class YqlFetcher
     path = "http://"
     # Yahoo removed "us" prefix for usa, so we must test country
     path += if (params.country is undefined) or (params.country is "us") then "" else params.country + "."
-    path += "news.yahoo.com/"
+    path += if params.query then "news.search.yahoo.com/" else "news.yahoo.com/"
     path += if (params.category is undefined) or (params.category is "") then "" else params.category + "/"
-    path += "?format=rss"
+    path += if params.query then "news/rss" else "?format=rss"
 
 
 
@@ -48,12 +56,13 @@ class YqlFetcher
   google : (params) ->
 
     # We retrieve google news only if gTopic exists (when a category is required)
-    if (params.category isnt undefined and params.gTopic isnt undefined)
+    if (params.query isnt undefined or (params.category isnt undefined and params.gTopic isnt undefined))
       path = "https://"
-      path += "news.google.com/news/section?"
-      path += "output=rss"
+      path += if params.query then "news.google.com/" else "news.google.com/news/section?"
+      path += "?output=rss"
       path += if params.country is undefined then "" else "&ned=" + params.country
       path += if params.gTopic is undefined then "" else "&topic=" + params.gTopic
+
     else
       path = false
 

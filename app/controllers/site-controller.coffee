@@ -36,11 +36,14 @@ module.exports = class SiteController extends Controller
     @reuse 'itemsView', ->
       new ItemsView collection: itemsCollection
 
+  showItemsFromSearch: (query) ->
+    @showItems query
 
   # Call news fetch and handles success and error xhr calls
-  showSection : (params) ->
+  showItems : (params) ->
     that = @
-
+    console.log 'params'
+    console.log params
     preloader = @reuse 'preloader'
     customHistory = @reuse 'customHistory'
     itemsCollection = @reuse 'items'

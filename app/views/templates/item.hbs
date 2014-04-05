@@ -14,15 +14,19 @@
 	{{/if}}
 
 	<div class="infos">
+		{{#if image}}
 		<div class="source">
-			<!--img class="favicon" src="http://g.etfv.co/{{source.url}}?defaulticon=http://en.wikipedia.org/favicon.ico" /-->
-			<!-- testing favicon service alternative -->
 			<img class="favicon" src="http://geticon.org/of/{{source.url}}" />
 			<a class="dateAndName" target="_blank" href="{{source.url}}">{{fullDate pubDate}} | {{{source.content}}}</a>
 		</div>
+		{{/if}}
 		<a class="title" target="_blank" href="{{link}}"><span data-url="{{link}}">{{title}}</span></a>
 
 		{{#unless image}}
+			<div class="source">
+				<img class="favicon" src="http://geticon.org/of/{{source.url}}" />
+				<a class="dateAndName" target="_blank" href="{{source.url}}">{{fullDate pubDate}} | {{{source.content}}}</a>
+			</div>
 			{{#if shortDescription}}
 			<p class='shortDescription'>{{{shortDescription}}}</p>
 			{{/if}}

@@ -10,8 +10,13 @@
     position absolute
     z-index 3
     top 0
-    width calc(100% \- 160px)
-    margin 0 80px
+    width calc(100% \- 300px)
+    margin 0 230px 0 80px
+    transition top .5s
+
+    // Navigation is hidden when input search is focused
+    &.hideMe
+        top -100px
 
 
     #topics

@@ -42,6 +42,10 @@ module.exports = class ItemsCollection extends Collection
       unless currentTopic is undefined
         fetcherParams.gTopic = currentTopic.gTopic
 
+    # Search
+    unless params is null or params.query is undefined
+      fetcherParams.query = params.query
+
 
     xhrOptions = YqlFetcher.newsURL fetcherParams
 

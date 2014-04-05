@@ -19,6 +19,7 @@
         position relative
         overflow hidden
 
+        /* LOGO */
         h1
             margin 0 0 0 10px
             position relative
@@ -44,6 +45,10 @@
                 float left
                 customFont(noveN, 14px, #666, 40px)
                 text-decoration none
+
+
+
+        /* SHOW TOPICS / PREFS*/
         #prefs
         #showTopics
             cursor pointer
@@ -60,14 +65,53 @@
                 &:before
                     color #333
 
-        #prefs
-            &:before
-                margin 0 10px 0 0
-
+        /* Hide menu button on large screens */
         #showTopics
-
             @media screen and (min-width : 599px)
                 display none
+
+        #prefs
+            &:before
+                margin 0 10px
+
+        /* SEARCH BOX */
+        #search
+            float right
+
+            &:before
+                color #666
+                line-height 40px
+                text-shadow 0 1px 0 #fff
+                float right
+                padding 0 15px 0 0
+
+            input
+                height 40px
+                border none
+                background transparent
+                border-left 1px solid #ededed
+                padding 0 10px
+                customFont(noveM)
+                transition width 0.25s
+                width 130px
+                line-height 40px
+
+                &:focus
+                    width 250px
+                    outline none
+
+            &:hover
+
+                input
+                &:before
+                    background #fff
+
+
+
+
+
+
+
 
     /* When user scroll more than header height from top, we show a tiny square */
     @media screen and (min-width : 599px)
@@ -84,6 +128,7 @@
                 overflow visible
 
                 #prefs
+                #search
                 #showTopics
                     opacity 0
                 h1
@@ -104,7 +149,11 @@
                     position fixed
                     top 0
 
+                    &.hideMe
+                        top -100px
+
                 #prefs
+                #search
                 #showTopics
                 h1 a
                     opacity 1
