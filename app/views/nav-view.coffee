@@ -24,7 +24,14 @@ module.exports = class NavView extends View
     ### Update currentMenu ###
     # Remove `/` for home
     currentPath = if path is '' then '/' else path
-    currentMenu = topics.find 'a[href="' + currentPath + '"]'
-    currentMenu.parent().addClass 'active'
-    newTitle = currentMenu.html()
+
+    #Check if path starts with `search/`
+    pattern = /^search\//
+    if pattern.test(path)
+      @$el.addClass 'search'
+    else
+      @$el.removeClass 'search'
+      currentMenu = topics.find 'a[href="' + currentPath + '"]'
+      currentMenu.parent().addClass 'active'
+      newTitle = currentMenu.html()
     Chaplin.mediator.publish 'changeTitle', newTitle
