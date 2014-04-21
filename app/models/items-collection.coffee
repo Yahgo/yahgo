@@ -32,15 +32,21 @@ module.exports = class ItemsCollection extends Collection
       country : if params is null or params.country is undefined
       then Topics.defaultCountry else params.country
 
+
+
     # Find google topic in local Topics
-    unless params is null or params.section is undefined
+    unless params is null #or params.section is undefined
       countryTopics = Topics.countries[fetcherParams.country].topics
       currentTopic = _.find countryTopics, (topic) ->
-        return (topic.section is fetcherParams.category && topic.gTopic isnt undefined)
+        return (topic.section is fetcherParams.category && topic.gTopic)
 
       # For specific countries, current google topic sometimes doesn't exist
       unless currentTopic is undefined
         fetcherParams.gTopic = currentTopic.gTopic
+
+    # Search
+    unless params is null or params.query is undefined
+      fetcherParams.query = params.query
 
 
     xhrOptions = YqlFetcher.newsURL fetcherParams
