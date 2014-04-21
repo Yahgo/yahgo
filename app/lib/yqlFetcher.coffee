@@ -39,12 +39,11 @@ class YqlFetcher
   #    country
   #    category
   yahoo : (params) ->
-
     path = "http://"
     # Yahoo removed "us" prefix for usa, so we must test country
     path += if (params.country is undefined) or (params.country is "us") then "" else params.country + "."
-    path += if params.query then "news.search.yahoo.com/" else "news.yahoo.com/"
-    path += if (params.category is undefined) or (params.category is "") then "" else params.category + "/"
+    path += if params.query then "news.search.yahoo.com/" else "news.yahoo.com"
+    path += if !params.category then "" else "/" + params.category + "/"
     path += if params.query then "news/rss" else "?format=rss"
 
 
@@ -54,17 +53,21 @@ class YqlFetcher
   #    country
   #    gTopic
   google : (params) ->
-
-    # We retrieve google news only if gTopic exists (when a category is required)
-    if (params.query isnt undefined or (params.category isnt undefined and params.gTopic isnt undefined))
       path = "https://"
-      path += if params.query then "news.google.com/" else "news.google.com/news/section?"
+
+      # We won't fetch google if we can't find a topic for category
+      if params.category isnt "" && params.gTopic is undefined
+        return false
+      # Else we can build the url
+      else if params.query or params.gTopic is undefined
+        path += "news.google.com/"
+      else
+        path += "news.google.com/news/section"
+
       path += "?output=rss"
       path += if params.country is undefined then "" else "&ned=" + params.country
       path += if params.gTopic is undefined then "" else "&topic=" + params.gTopic
 
-    else
-      path = false
 
 
 

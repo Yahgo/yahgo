@@ -15,6 +15,17 @@
     width 100%
     top 0
 
+    /* States */
+    &.searchFocus
+    &.searchActive
+        // Nav is hidden whether the input is focused
+        // or a search is active
+        & + #nav-container
+            top -100px
+
+    &.searchActive .header #searchInfo
+            display table
+
     .header
         position relative
         overflow hidden
@@ -74,6 +85,8 @@
             &:before
                 margin 0 10px
 
+
+
         /* SEARCH BOX */
         #search
             float right
@@ -109,6 +122,38 @@
 
 
 
+        /* SEARCH INFO */
+        #searchInfo
+            display none
+            position absolute
+            width calc(100% \- 300px)
+            margin 0 230px 0 80px
+
+            .centerBox
+                display table-cell
+                text-align center
+                vertical-align middle
+
+                .innerWrapper
+                    display inline-block
+
+            .reminder
+                customFont(noveM, 16px, #666, 40px)
+                float left
+
+                strong
+                    color #ff6600
+
+            .quitSearch
+                float left
+                margin 0 0 0 15px
+                border none
+                height 30px
+                background none
+                customFont(noveM, 14px, #ff6600, 40px)
+
+
+
 
 
 
@@ -129,6 +174,7 @@
 
                 #prefs
                 #search
+                #searchInfo
                 #showTopics
                     opacity 0
                 h1
@@ -144,16 +190,19 @@
                 background linear-gradient(top, #f3f3f3, #fff)
                 border-bottom 1px solid #eee
 
+                &.searchFocus
+                &.searchActive
+                    + #nav-container
+                        top -100px
+
                 + #nav-container
                     display block
                     position fixed
                     top 0
 
-                    &.hideMe
-                        top -100px
-
                 #prefs
                 #search
+                #searchInfo
                 #showTopics
                 h1 a
                     opacity 1

@@ -3,6 +3,14 @@
 </h1>
 <div id="prefs" data-icon="a"></div>
 <div id="search" data-icon="b">
-	<input type="text" placeholder="Type your search"/>
+	<input type="text" placeholder="Type your search" value="{{#if search}}{{search}}{{/if}}"/>
+</div>
+<div id='searchInfo'>
+	<div class='centerBox'>
+		<div class='innerWrapper'>
+			<div class='reminder'>Your search <strong>{{search}}</strong> is currently active</div>
+			<button class='quitSearch'>Quit search</button>
+		</div>
+	</div>
 </div>
 <div id="showTopics" data-icon="b"></div>

@@ -49,16 +49,15 @@ class DataFormatter
     if sourcePattern.test description
       item.source.content = RegExp.$1
 
-    ### Short description ###
-    # Check if we can find a description text to make a short one (only if no image found)
-    if item.image is undefined and descriptionPattern.test(description) is true
-      item.shortDescription = RegExp.$1
-
-
     # Check if we can find an image
     if imgPattern.test description
       item.image =
         url : RegExp.$1
+
+    ### Short description ###
+    # Check if we can find a description text to make a short one (only if no image found)
+    if item.image is undefined and descriptionPattern.test(description) is true
+      item.shortDescription = RegExp.$1
 
     # Extract correct url from Google link
     if sourceUrlPattern.test link

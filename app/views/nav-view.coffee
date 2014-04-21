@@ -13,8 +13,13 @@ module.exports = class NavView extends View
     @options = options
     @subscribeEvent 'updateMenus', @updateMenus
 
+
+
   getTemplateData: ->
-    @options.topics
+    templateData =
+      topics: @options.topics
+
+
 
   updateMenus: (path) ->
     topics = @$el.find "#topics li"
