@@ -15,10 +15,22 @@
     width 100%
     top 0
 
+    /* States */
+    &.searchFocus
+    &.searchActive
+        // Nav is hidden whether the input is focused
+        // or a search is active
+        & + #nav-container
+            top -100px
+
+    &.searchActive .header #searchInfo
+            display table
+
     .header
         position relative
         overflow hidden
 
+        /* LOGO */
         h1
             margin 0 0 0 10px
             position relative
@@ -44,6 +56,10 @@
                 float left
                 customFont(noveN, 14px, #666, 40px)
                 text-decoration none
+
+
+
+        /* SHOW TOPICS / PREFS*/
         #prefs
         #showTopics
             cursor pointer
@@ -60,14 +76,87 @@
                 &:before
                     color #333
 
-        #prefs
-            &:before
-                margin 0 10px 0 0
-
+        /* Hide menu button on large screens */
         #showTopics
-
             @media screen and (min-width : 599px)
                 display none
+
+        #prefs
+            &:before
+                margin 0 10px
+
+
+
+        /* SEARCH BOX */
+        #search
+            float right
+
+            &:before
+                color #666
+                line-height 40px
+                text-shadow 0 1px 0 #fff
+                float right
+                padding 0 15px 0 0
+
+            input
+                height 40px
+                border none
+                background transparent
+                border-left 1px solid #ededed
+                padding 0 10px
+                customFont(noveM)
+                transition width 0.25s
+                width 130px
+                line-height 40px
+
+                &:focus
+                    width 250px
+                    outline none
+
+            &:hover
+
+                input
+                &:before
+                    background #fff
+
+
+
+
+        /* SEARCH INFO */
+        #searchInfo
+            display none
+            position absolute
+            width calc(100% \- 300px)
+            margin 0 230px 0 80px
+
+            .centerBox
+                display table-cell
+                text-align center
+                vertical-align middle
+
+                .innerWrapper
+                    display inline-block
+
+            .reminder
+                customFont(noveM, 16px, #666, 40px)
+                float left
+
+                strong
+                    color #ff6600
+
+            .quitSearch
+                float left
+                margin 0 0 0 15px
+                border none
+                height 30px
+                background none
+                customFont(noveM, 14px, #ff6600, 40px)
+
+
+
+
+
+
 
     /* When user scroll more than header height from top, we show a tiny square */
     @media screen and (min-width : 599px)
@@ -84,6 +173,8 @@
                 overflow visible
 
                 #prefs
+                #search
+                #searchInfo
                 #showTopics
                     opacity 0
                 h1
@@ -99,12 +190,19 @@
                 background linear-gradient(top, #f3f3f3, #fff)
                 border-bottom 1px solid #eee
 
+                &.searchFocus
+                &.searchActive
+                    + #nav-container
+                        top -100px
+
                 + #nav-container
                     display block
                     position fixed
                     top 0
 
                 #prefs
+                #search
+                #searchInfo
                 #showTopics
                 h1 a
                     opacity 1

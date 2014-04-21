@@ -19,7 +19,6 @@ module.exports = class ItemView extends View
 
 	render: ->
 		super
-		@getYahooLargeImage()
 		@getCanvasData()
 
 	listen:
@@ -76,26 +75,7 @@ module.exports = class ItemView extends View
 
 		request = $.ajax requestParams
 		request.done (data) ->
-			#console.log "success loading image "+url
 			callback data
 
 		request.fail ->
 			callback null
-			#console.log "failed loading image "+url
-
-	###
-	Yahoo provide a string with two urls.
-	The first one is the yahoo sized image, and the second one is the original image
-	###
-	getYahooLargeImage: ->
-		item = @model.attributes
-		unless item.image is undefined
-		    currentURL = item.image.url
-		    # We capture the second http sequence
-		    pattern = /.+((?:http|https):(?:\/{2}).+)/
-		    testURL = pattern.test(currentURL)
-		    if testURL
-		    	item.image.url = RegExp.$1
-		    	item.image.largeSize = true
-		    else
-		    	currentURL

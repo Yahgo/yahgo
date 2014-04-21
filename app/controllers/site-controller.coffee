@@ -20,15 +20,15 @@ module.exports = class SiteController extends Controller
     @route = route
     # Get current category
     # TODO: get localization
-    topics = Topics.countries[Topics.defaultCountry]
+    topics = Topics.countries[Topics.defaultCountry].topics
 
     # Set all composers
-    @reuse 'site', SiteView
-    @reuse 'preloader', PreloaderView
-    @reuse 'header', HeaderView
-    @reuse 'nav', NavView, topics: topics
     @reuse 'customHistory', ->
       @item = new HistoryCollection null
+    @reuse 'site', SiteView
+    @reuse 'preloader', PreloaderView
+    @reuse 'header', HeaderView, route: route, customHistory: @reuse 'customHistory'
+    @reuse 'nav', NavView, topics: topics, route: route
 
     itemsCollection = @reuse 'items', ->
       @item = new ItemsCollection null
@@ -36,11 +36,12 @@ module.exports = class SiteController extends Controller
     @reuse 'itemsView', ->
       new ItemsView collection: itemsCollection
 
+  showItemsFromSearch: (query) ->
+    @showItems query
 
   # Call news fetch and handles success and error xhr calls
-  showSection : (params) ->
+  showItems : (params) ->
     that = @
-
     preloader = @reuse 'preloader'
     customHistory = @reuse 'customHistory'
     itemsCollection = @reuse 'items'
@@ -59,7 +60,7 @@ module.exports = class SiteController extends Controller
         # section has items, we try to push it in valid customHistory
         # (1) Composer in args
         that.checkSameLastHistory that.route, customHistory
-        # Publish event
+        # Publish event to nav view
         Chaplin.mediator.publish 'updateMenus', that.route.path
 
     response.fail ->
@@ -76,7 +77,8 @@ module.exports = class SiteController extends Controller
   checkSameLastHistory : (route, customHistory) ->
     historyLength = customHistory.length
     lastEntry = customHistory.at(historyLength - 1)
-    if((lastEntry is undefined) or (route.path isnt lastEntry.get "path")) then customHistory.push route
+    if((lastEntry is undefined) or(route.path isnt lastEntry.get "path"))
+      customHistory.push route
 
 
   forceReload : (params) ->
