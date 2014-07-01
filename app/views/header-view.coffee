@@ -38,9 +38,10 @@ module.exports = class HeaderView extends View
 			currentValue = encodeURIComponent e.currentTarget.value
 			Chaplin.utils.redirectTo url: 'search/'+currentValue
 			Chaplin.mediator.publish 'changeTitle', decodeURIComponent currentValue
+
 			@container
-			.addClass 'searchActive'
-			.removeClass 'searchFocus'
+			.addClass('searchActive')
+			.removeClass('searchFocus')
 
 
 
